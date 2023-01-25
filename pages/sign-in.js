@@ -31,7 +31,7 @@ function SignIn() {
         </Text>
 
         <Auth
-          redirectTo="http://localhost:3000/applications"
+          redirectTo="http://localhost:3000/sign-in"
           magicLink
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}

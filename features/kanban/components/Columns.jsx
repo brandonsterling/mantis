@@ -60,6 +60,7 @@ function Columns({ apps }) {
           <Droppable droppableId={status} key={status} direction="vertical">
             {(provided, snapshot) => (
               <Flex
+                sx={{ overflowY: "scroll" }}
                 direction="column"
                 {...provided.droppableProps}
                 ref={provided.innerRef}

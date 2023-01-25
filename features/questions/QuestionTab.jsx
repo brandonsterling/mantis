@@ -8,12 +8,15 @@ import {
   Modal,
   Tabs,
   Accordion,
+  ActionIcon,
 } from "@mantine/core";
 import React, { useState } from "react";
 import TabPanelHeader from "../profile/components/ProfileTabs/components/Tabs/TabPanelHeader";
 import NewQuestionModal from "./components/NewQuestionModal";
+import { BiEdit } from "react-icons/bi";
 
 import QuestionAccordion from "./QuestionAccordion/QuestionAccordion";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   item: {
@@ -33,7 +36,7 @@ const useStyles = createStyles((theme) => ({
 
 function QuestionTab({ data, appId }) {
   const { classes } = useStyles();
-
+  const router = useRouter();
   return (
     <Tabs.Panel value="questions" pt="xs">
       <TabPanelHeader
@@ -42,6 +45,15 @@ function QuestionTab({ data, appId }) {
         action={
           <>
             {/* <ExistingQuestionModal data={data} appId={appId} /> */}
+            <Button
+              onClick={() => router.push("/questions")}
+              size="xs"
+              compact
+              variant="outline"
+              color="dark"
+            >
+              Edit
+            </Button>
             <NewQuestionModal appId={appId} />
           </>
         }

@@ -13,6 +13,8 @@ import {
   Select,
   Center,
   Button,
+  ThemeIcon,
+  Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useUser } from "@supabase/auth-helpers-react";
@@ -20,12 +22,19 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Link from "next/link";
+import { IoLocateOutline, IoLocationOutline } from "react-icons/io5";
 
 const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
   root: {
     position: "fixed",
+  },
+  title: {
+    color: theme.black,
+    fontSize: 30,
+    fontFamily: `Nunito, ${theme.fontFamily}`,
+    fontWeight: 700,
   },
 
   dropdown: {
@@ -132,20 +141,18 @@ export function LandingHeader() {
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
         <Group>
-          <Image
-            alt="logo"
-            width="40px"
-            src="https://bookface-images.s3.amazonaws.com/small_logos/3dcf030e59043229f9f7cbf7c68ae2505e6610f1.png"
-          />
-          <Title order={3}>Jobby</Title>
+          <ThemeIcon color="indigo">
+            <IoLocationOutline size="25" />
+          </ThemeIcon>
+          <Text className={classes.title}>mantis</Text>
         </Group>
         <Group>
           <Button component="a" href="/sign-in">
             Sign In
           </Button>
-          <Button component="a" href="/sign-up">
+          {/* <Button component="a" href="/sign-up">
             Sign Out
-          </Button>
+          </Button> */}
         </Group>
       </Container>
     </Header>

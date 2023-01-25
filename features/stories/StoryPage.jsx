@@ -7,32 +7,26 @@ import FormCard from "../../components/FormCard";
 import CreateStory from "./CreateStory";
 
 const useStyles = createStyles((theme) => ({
-  grid: {
-    alignItems: "stretch",
-    placeContent: "stretch",
-    display: "flex",
-    flexDirection: "row",
-    boxSizing: "border-box",
+  main: {
     height: "100%",
-    backgroundColor: theme.white,
+    overflow: "hidden",
+  },
+  grid: {
+    position: "relative",
+    // display: "flex",
+    display: "flex",
+    height: "100vh",
   },
   sideCol: {
+    borderRight: "1px solid lightgray",
     flexBasis: "30%",
-    overflow: "auto",
-
-    maxWidth: "30%",
+    overflowY: "scroll",
   },
-
-  sideContent: {
-    left: "0px",
-    top: "5px",
-  },
-
   mainCol: {
-    overflow: "hidden",
-    borderLeft: "1px solid rgb(239, 241, 244)",
+    flex: "1 auto",
     flexBasis: "70%",
-    maxWidth: "70%",
+    marginBottom: 50,
+    overflowY: "scroll",
   },
 }));
 
@@ -49,23 +43,23 @@ export function StoryPage() {
   };
 
   return (
-    <div className={classes.grid}>
-      <div className={classes.sideCol}>
-        <div className={classes.sideContent}>
+    <div className={classes.main}>
+      <div className={classes.grid}>
+        <div className={classes.sideCol}>
           <StoryList handleClick={handleClick} selected={selected} />
         </div>
-      </div>
-      <div className={classes.mainCol}>
-        <FormCard>
-          {!selected ? (
-            <CreateStory />
-          ) : (
-            <>
-              <StoryContent selected={selected} />
-              <SideContent selected={selected} />
-            </>
-          )}
-        </FormCard>
+        <div className={classes.mainCol}>
+          <FormCard>
+            {!selected ? (
+              <CreateStory />
+            ) : (
+              <>
+                <StoryContent selected={selected} />
+                <SideContent selected={selected} />
+              </>
+            )}
+          </FormCard>
+        </div>
       </div>
     </div>
   );

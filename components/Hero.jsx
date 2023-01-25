@@ -8,20 +8,23 @@ import {
   Text,
   List,
   ThemeIcon,
+  Center,
+  Paper,
 } from "@mantine/core";
+import { useRouter } from "next/router";
 import { BsCheck } from "react-icons/bs";
 
 const useStyles = createStyles((theme) => ({
   inner: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: theme.spacing.xl * 4,
-    paddingBottom: theme.spacing.xl * 4,
+    paddingTop: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl,
   },
 
   content: {
-    maxWidth: 480,
-    marginRight: theme.spacing.xl * 3,
+    alignSelf: "center",
+    // maxWidth: 480,
 
     [theme.fn.smallerThan("md")]: {
       maxWidth: "100%",
@@ -48,7 +51,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   image: {
-    flex: 1,
+    // flex: 1,
 
     [theme.fn.smallerThan("md")]: {
       display: "none",
@@ -68,11 +71,12 @@ const useStyles = createStyles((theme) => ({
 
 export function Hero() {
   const { classes } = useStyles();
+  const router = useRouter();
   return (
-    <div>
-      <Container>
-        <div className={classes.inner}>
-          <div className={classes.content}>
+    <Container size="xl">
+      <div className={classes.inner}>
+        <div className={classes.content}>
+          <Group position="center">
             <Title className={classes.title}>
               A <span className={classes.highlight}>modern</span> Job
               Application <br /> tracker
@@ -81,51 +85,37 @@ export function Hero() {
               Track your job applications and keep your job search organized,
               all in one place.
             </Text>
+          </Group>
 
-            {/* <List
-              mt={30}
-              spacing="sm"
-              size="sm"
-              icon={
-                <ThemeIcon size={20} radius="xl">
-                  <BsCheck size={12} stroke={1.5} />
-                </ThemeIcon>
-              }
+          <Group position="center" mt={30}>
+            <Button
+              onClick={() => router.push("/sign-in")}
+              radius="xl"
+              size="md"
+              className={classes.control}
             >
-              <List.Item>
-                <b>TypeScript based</b> – build type safe applications, all
-                components and hooks export types
-              </List.Item>
-              <List.Item>
-                <b>Free and open source</b> – all packages have MIT license, you
-                can use Mantine in any project
-              </List.Item>
-              <List.Item>
-                <b>No annoying focus ring</b> – focus ring will appear only when
-                user navigates with keyboard
-              </List.Item>
-            </List> */}
-
-            <Group mt={30}>
-              <Button radius="xl" size="md" className={classes.control}>
-                Get started
-              </Button>
-              <Button
+              Get started
+            </Button>
+            {/* <Button
                 variant="default"
                 radius="xl"
                 size="md"
                 className={classes.control}
               >
                 Source code
-              </Button>
-            </Group>
-          </div>
-          <Image
-            src="https://ui.mantine.dev/_next/static/media/image.9a65bd94.svg"
-            className={classes.image}
-          />
+              </Button> */}
+          </Group>
         </div>
-      </Container>
-    </div>
+      </div>
+      <Paper shadow="lg">
+        <Image
+          src="/kanban_demo.png"
+          // width={1000}
+          ml="auto"
+          mr="auto"
+          className={classes.image}
+        />
+      </Paper>
+    </Container>
   );
 }

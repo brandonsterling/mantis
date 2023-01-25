@@ -34,7 +34,7 @@ function Board() {
 
   return (
     <>
-      <SimpleGrid height="100%" cols={4}>
+      <SimpleGrid cols={4}>
         <Columns apps={applications.data} />
       </SimpleGrid>
     </>

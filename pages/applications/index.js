@@ -15,10 +15,6 @@ const useStyles = createStyles((theme) => ({
   wrapper: {
     paddingRight: "50px",
     paddingLeft: "20px",
-
-    borderRadius: theme.spacing.xs,
-    height: "100%",
-    width: "100%",
   },
   grid: {
     height: "100%",
@@ -75,9 +71,7 @@ function Page() {
         </Group>
       </Flex>
       <div className={classes.wrapper}>
-        <Box>
-          <KanbanBoard />
-        </Box>
+        <KanbanBoard />
       </div>
     </>
   );
