@@ -21,6 +21,7 @@ function SignIn() {
       ? "http://localhost:3000"
       : "https://mantis-one.vercel.app";
 
+  console.log(redirectBaseLink);
   return (
     <Box>
       <Paper

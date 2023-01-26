@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { rtlCache } from "../rtl-cache";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,6 +57,7 @@ export default function App(props) {
             }}
           >
             <MantineProvider
+              emotionCache={rtlCache}
               withGlobalStyles
               withNormalizeCSS
               theme={{
