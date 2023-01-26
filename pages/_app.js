@@ -38,7 +38,7 @@ export default function App(props) {
   const Layout = Component.Layout || ((children) => <>{children}</>);
 
   return (
-    <div>
+    <>
       <Head>
         <title>Page title</title>
         <meta
@@ -57,7 +57,6 @@ export default function App(props) {
             }}
           >
             <MantineProvider
-              emotionCache={rtlCache}
               withGlobalStyles
               withNormalizeCSS
               theme={{
@@ -90,6 +89,6 @@ export default function App(props) {
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </SessionContextProvider>
-    </div>
+    </>
   );
 }
