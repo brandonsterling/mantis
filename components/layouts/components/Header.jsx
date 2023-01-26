@@ -167,7 +167,7 @@ export function HeaderResponsive() {
             <BsArrowLeft size={20} />
           </ActionIcon>
           <Group>
-            <ThemeIcon color="indigo">
+            <ThemeIcon>
               <IoLocationOutline size="25" />
             </ThemeIcon>
             <Text className={classes.title}>mantis</Text>

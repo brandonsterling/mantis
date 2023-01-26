@@ -12,8 +12,12 @@ import React from "react";
 import { IoChevronForward } from "react-icons/io5";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 
 dayjs.extend(relativeTime);
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -45,12 +49,13 @@ const useStyles = createStyles((theme) => ({
 
 function Job({ job, setActive }) {
   const { classes } = useStyles();
-  console.log(job);
 
   const router = useRouter();
   if (!job) {
     return;
   }
+
+  const local = dayjs.tz.guess();
 
   const handleClick = () => {
     if (router.asPath.includes("interview-mode")) {
@@ -81,7 +86,7 @@ function Job({ job, setActive }) {
       <Card.Section className={classes.footer}>
         <Group position="right">
           <Text size="xs" color="dimmed" sx={{ lineHeight: 1 }}>
-            {dayjs().to(job.updatedAt)}
+            {dayjs().to(dayjs.utc(job.updatedAt).tz(local))}
           </Text>
         </Group>
       </Card.Section>

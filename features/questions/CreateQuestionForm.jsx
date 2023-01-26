@@ -63,11 +63,15 @@ function CreateQuestionForm({ addQuestion }) {
     initialValues: {
       question: "",
       answer: "",
-      type: "",
+      type: undefined,
     },
     validate: {
       question: (value) =>
-        value.length < 2 ? "Please provide the quesiton above" : null,
+        value.length < 2 ? "Please provide a question above" : null,
+      type: (value) =>
+        value == undefined
+          ? "Please choose who will be asking the question"
+          : null,
     },
   });
 
@@ -92,8 +96,11 @@ function CreateQuestionForm({ addQuestion }) {
           {...form.getInputProps("answer")}
         />
 
-        <Input.Wrapper label="Choose who will be asking this question">
-          <SimpleGrid mt="sm" cols={2}>
+        <Input.Wrapper
+          {...form.getInputProps("type")}
+          label="Choose who will be asking this question"
+        >
+          <SimpleGrid my="sm" cols={2}>
             <RadioCard
               handleChange={form.setFieldValue}
               value={form.values.type}

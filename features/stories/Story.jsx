@@ -47,7 +47,7 @@ const useStyles = createStyles((theme) => ({
     border: `1px solid transparent`,
 
     "&:hover": {
-      border: `1px solid ${theme.colors.blue[6]}`,
+      border: `1px solid ${theme.colors.green[5]}`,
     },
   },
 
@@ -86,7 +86,7 @@ const useStyles = createStyles((theme) => ({
     border: "1px solid transparent",
 
     "&:hover": {
-      border: `1px solid ${theme.colors.blue[6]}`,
+      border: `1px solid ${theme.colors.green[5]}`,
     },
   },
 

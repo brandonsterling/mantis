@@ -9,11 +9,27 @@ import {
 } from "@mantine/core";
 
 const mockdata = [
-  { title: "Glassdoor", logo: "https://logo.clearbit.com/glassdoor.com" },
+  {
+    title: "Glassdoor",
+    logo: "https://logo.clearbit.com/glassdoor.com",
+    link: "https://www.glassdoor.com/",
+  },
 
-  { title: "HBR", logo: "https://logo.clearbit.com/hbr.org" },
-  { title: "Leetcode", logo: "https://logo.clearbit.com/leetcode.com" },
-  { title: "Indeed", logo: "https://logo.clearbit.com/indeed.com" },
+  {
+    title: "HBR",
+    logo: "https://logo.clearbit.com/hbr.org",
+    link: "https://hbr.org/2022/05/38-smart-questions-to-ask-in-a-job-interview",
+  },
+  {
+    title: "Leetcode",
+    logo: "https://logo.clearbit.com/leetcode.com",
+    link: "https://leetcode.com/discuss/interview-question",
+  },
+  {
+    title: "Indeed",
+    logo: "https://logo.clearbit.com/indeed.com",
+    link: "https://www.indeed.com/career-advice/interviewing/top-interview-questions-and-answers",
+  },
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -52,7 +68,13 @@ export default function ResourcesGrid() {
   const { classes, theme } = useStyles();
 
   const items = mockdata.map((item) => (
-    <UnstyledButton key={item.title} className={classes.item}>
+    <UnstyledButton
+      component="a"
+      href={item.link}
+      target="_blank"
+      key={item.title}
+      className={classes.item}
+    >
       <Avatar sx={{ objectFit: "contain" }} src={item.logo} />
 
       <Text size="xs" mt={7}>

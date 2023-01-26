@@ -36,10 +36,10 @@ function Value({
           display: "flex",
           cursor: "default",
           alignItems: "center",
-          backgroundColor:
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[7]
-              : theme.colors.gray[2],
+          // backgroundColor:
+          //   theme.colorScheme === "dark"
+          //     ? theme.colors.dark[7]
+          //     : theme.colors.gray[2],
           border: `1px solid ${
             theme.colorScheme === "dark"
               ? theme.colors.dark[7]

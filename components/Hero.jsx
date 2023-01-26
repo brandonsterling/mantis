@@ -91,6 +91,7 @@ export function Hero() {
             <Button
               onClick={() => router.push("/sign-in")}
               radius="xl"
+              color="dark"
               size="md"
               className={classes.control}
             >

@@ -16,6 +16,11 @@ function SignIn() {
     }
   }, [session]);
 
+  const redirectBaseLink =
+    process.env.NODE_ENV == "development"
+      ? "http://localhost:3000"
+      : "https://mantis-one.vercel.app";
+
   return (
     <Box>
       <Paper
@@ -31,7 +36,7 @@ function SignIn() {
         </Text>
 
         <Auth
-          redirectTo="http://localhost:3000/sign-in"
+          redirectTo={`${redirectBaseLink}/sign-in`}
           magicLink
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}

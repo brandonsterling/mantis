@@ -58,6 +58,23 @@ export default function App(props) {
             <MantineProvider
               withGlobalStyles
               withNormalizeCSS
+              theme={{
+                colors: {
+                  brand: [
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                    "#3ecf8e",
+                  ],
+                },
+                primaryColor: "green",
+              }}
               // theme={{
               //   /** Put your mantine theme override here */
               //   colorScheme: "light",

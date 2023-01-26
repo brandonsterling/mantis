@@ -7,13 +7,13 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     overflow: "hidden",
 
-    "&:hover": {
-      borderColor: theme.colors.blue[5],
-    },
+    // "&:hover": {
+    //   borderColor: theme.colors.blue[5],
+    // },
   },
   active: {
     backgroundColor: theme.colors.blue[0],
-    borderColor: theme.colors.blue[5],
+    // borderColor: theme.colors.blue[5],
     boxShadow: theme.shadows.xs,
 
     // "&::before": {
