@@ -70,7 +70,7 @@ export const useApplication = (id) => {
 
       const description = application.description;
 
-      if (description.replace(/(\r\n|\n|\r)/gm, "").length < 10) {
+      if (description.replace(/(\r\n|\n|\r)/gm, "").length < 30) {
         appWithUser = {
           ...app,
           keywords: "",
@@ -117,29 +117,30 @@ export const useApplication = (id) => {
 
   const update = useMutation(
     async ({ appId, app }) => {
-      const description = app.description;
+      if (app.description) {
+        const description = app.description;
+        if (description.replace(/(\r\n|\n|\r)/gm, "").length < 30) {
+          app = {
+            ...app,
+            keywords: "",
+          };
+        } else {
+          const response = await fetch("/api/openai", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
 
-      if (description.replace(/(\r\n|\n|\r)/gm, "").length < 10) {
-        app = {
-          ...app,
-          keywords: "",
-        };
-      } else {
-        const response = await fetch("/api/openai", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+            body: JSON.stringify({ description }),
+          });
+          const res = await response.json();
+          const cleanText = res.result.replace(/(\r\n|\n|\r)/gm, "");
 
-          body: JSON.stringify({ description }),
-        });
-        const res = await response.json();
-        const cleanText = res.result.replace(/(\r\n|\n|\r)/gm, "");
-
-        app = {
-          ...app,
-          keywords: cleanText,
-        };
+          app = {
+            ...app,
+            keywords: cleanText,
+          };
+        }
       }
 
       const { data, error } = await supabase

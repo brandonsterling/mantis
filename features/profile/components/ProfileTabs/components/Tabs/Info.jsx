@@ -53,7 +53,6 @@ function Info({ appId, application }) {
       const app = {
         role: form.values.role,
         link: form.values.link,
-        description: form.values.description,
         logo: form.values.logo,
         company: form.values.company,
         applied_at: form.values.applied_at,
@@ -61,6 +60,10 @@ function Info({ appId, application }) {
 
       if (form.isDirty("company") && !form.isDirty("logo")) {
         app.logo = "";
+      }
+
+      if (form.isDirty("description")) {
+        app.description = form.values.description;
       }
       update.mutate({ appId: application.id, app: app });
 
