@@ -3,7 +3,6 @@ import React from "react";
 import { useStory } from "../../hooks/useStory";
 
 function StoryChips({ selected }) {
-  console.log(selected);
   const { relatedApps } = useStory(selected);
 
   //   if (!relatedApps || !relatedApps.data) {

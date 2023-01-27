@@ -85,7 +85,6 @@ export function useRelatedQuestion(question_id) {
 
   const removeLink = useMutation(
     async ({ question_id, appId }) => {
-      console.log(question_id);
       const { data, error } = await supabase
         .from("_application_to_question")
         .delete()

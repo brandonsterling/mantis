@@ -103,14 +103,10 @@ export function StoryContent({ selected }) {
   const { story, update } = useStory(selected);
   const { data } = story;
 
-  if (story.isLoading && story.isFetching) {
-    return <div>loading..</div>;
-  }
-
   const form = useForm({
     initialValues: {
-      title: data.title,
-      content: data.content,
+      title: data?.title,
+      content: data?.content,
     },
   });
 
@@ -132,7 +128,7 @@ export function StoryContent({ selected }) {
   }, [debounced]);
 
   useEffect(() => {
-    if (data.title !== form.values.title) {
+    if (data && data.title !== form.values.title) {
       form.setValues({
         title: data.title,
         content: data.content,
@@ -140,6 +136,9 @@ export function StoryContent({ selected }) {
     }
   }, [selected]);
 
+  if (story.isLoading && story.isFetching) {
+    return <div>loading..</div>;
+  }
   return (
     <Content>
       {data && (
@@ -179,7 +178,6 @@ export function SideContent({ selected }) {
   };
 
   const handleRemove = (value) => {
-    console.log("removing");
     removeLink.mutate({ storyId: selected, appId: value });
   };
 

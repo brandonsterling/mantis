@@ -56,8 +56,6 @@ function ExistingQuestionModal({ appId, data }) {
   const [opened, setOpened] = useState(false);
   const { create } = useQuestion();
 
-  console.log(data.questions.map((item) => item.id));
-
   const addQuestion = async () => {
     create.mutate({ question: form.values, appId: appId });
 

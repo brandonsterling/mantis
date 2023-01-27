@@ -62,10 +62,11 @@ const useStyles = createStyles((theme) => ({
     overflowY: "scroll",
   },
   mainCol: {
+    backgroundColor: theme.colors.gray[0],
     flex: "1 auto",
-    flexBasis: "70%%",
-    marginBottom: 50,
-    overflowY: "scroll",
+    flexBasis: "70%",
+    // paddingBottom: 50,
+    overflow: "hidden",
   },
 }));
 
@@ -76,15 +77,12 @@ function Page() {
   const [selected, setSelected] = useState(null);
 
   const handleClick = (questionId) => {
-    console.log(questionId);
     setSelected(questionId);
   };
 
   const { data } = questions;
 
   if (!questions || !data) {
-    console.log(data);
-
     return (
       <Center>
         <Loader color="green" variant="dots" />

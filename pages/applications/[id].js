@@ -55,6 +55,11 @@ const useStyles = createStyles((theme) => ({
     top: 10,
     paddingLeft: "24px",
   },
+  main: {
+    height: "100%",
+    paddingTop: theme.spacing.xl,
+    backgroundColor: theme.colors.gray[0],
+  },
 }));
 
 function Page() {
@@ -63,8 +68,11 @@ function Page() {
   const { id } = router.query;
   const [opened, setOpened] = useState();
 
-  console.log(id);
   const { application } = useApplication(id);
+
+  if (application.isLoading) {
+    return <div></div>;
+  }
 
   // if (application.isLoading) {
   //   return (
@@ -82,7 +90,8 @@ function Page() {
   //   );
   // }
   return (
-    <Container sx={{ paddingTop: 35 }} size="xl">
+    <div className={classes.main}>
+      {/* <Container sx={{ paddingTop: 35 }} size="xl"> */}
       <div className={classes.grid}>
         <div className={classes.sideCol}>
           <div className={classes.rightContainer}>
@@ -100,7 +109,8 @@ function Page() {
           </div>
         </div>
       </div>
-    </Container>
+      {/* </Container> */}
+    </div>
   );
 }
 

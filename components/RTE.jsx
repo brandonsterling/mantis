@@ -20,7 +20,7 @@ function RTE({
     editable: editable,
     extensions: [
       StarterKit,
-      Placeholder.configure({ placeholder: "This is placeholder" }),
+      // Placeholder.configure({ placeholder: "This is placeholder" }),
     ],
     content: content,
     onUpdate: ({ editor }) => {

@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function RadioCard({ value, label, type, handleChange }) {
+export function RadioCard({ value, label, type, handleChange }) {
   const { classes } = useStyles();
 
   return (

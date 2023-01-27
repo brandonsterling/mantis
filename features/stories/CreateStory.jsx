@@ -21,7 +21,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 function Main() {
-  console.log("main");
   const router = useRouter();
   const form = useForm({
     initialValues: {
@@ -55,7 +54,7 @@ function Main() {
 function Side() {
   return (
     <MediaQuery smallerThan="xl" styles={{ display: "none" }}>
-      <Grid.Col sx={{ backgroundColor: "#eeeeee" }} span={4}>
+      <Grid.Col sx={{}} span={4}>
         <Card.Section p="md" inheritPadding>
           <Text weight="bold">Resources</Text>
           <SimpleGrid cols={2} mt="md">

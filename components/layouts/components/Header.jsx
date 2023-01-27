@@ -134,7 +134,6 @@ export function HeaderResponsive() {
   const { id } = router.query;
   const [appData, setData] = useState();
 
-  console.log(id);
   const [active, setActive] = useState("");
   const { classes, cx } = useStyles();
   const user = useUser();
@@ -146,7 +145,7 @@ export function HeaderResponsive() {
         item.value = item.id;
         item.label = `${item.role} - ${item.company}`;
       });
-      console.log(normalizedApps);
+
       setData(normalizedApps);
     }
   }, [data]);

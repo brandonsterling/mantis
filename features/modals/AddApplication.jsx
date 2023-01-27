@@ -23,7 +23,6 @@ function AddApplication({ innerProps, context, id }) {
   });
 
   const handleSubmit = () => {
-    console.log("submitting");
     const requestOptions = {
       method: "POST",
       body: JSON.stringify({

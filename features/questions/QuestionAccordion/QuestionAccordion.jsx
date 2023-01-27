@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import React from "react";
 import { QUESTION_STATES } from "../../../constants/questions";
+import RTEPanel from "./AccordionItem";
 import FavoriteButton from "./FavoriteButton";
 
 const useStyles = createStyles((theme) => ({
@@ -50,15 +51,7 @@ function QuestionAccordion({ data, appId }) {
   const accordionItems = data.questions.map((question, index) => {
     return (
       <Accordion.Item key={question.id} value={question.id}>
-        <Accordion.Control
-        // icon={
-        //   <FavoriteButton
-        //     question_id={question.id}
-        //     application_id={appId}
-        //     status={isFavorite(data._application_to_question, question.id)}
-        //   />
-        // }
-        >
+        <Accordion.Control>
           <Group position="apart" noWrap>
             <div>
               <Text> {question.question}</Text>
@@ -66,14 +59,14 @@ function QuestionAccordion({ data, appId }) {
             <Badge
               style={{ minWidth: 80 }}
               size="sm"
-              variant="outline"
-              color="dark"
+              // variant="outline"
+              color={QUESTION_STATES[question.type] == "Ask" ? "green" : "blue"}
             >
               {QUESTION_STATES[question.type]}
             </Badge>
           </Group>
         </Accordion.Control>
-        <Accordion.Panel>{question.answer}</Accordion.Panel>
+        <RTEPanel content={question.answer} />
       </Accordion.Item>
     );
   });

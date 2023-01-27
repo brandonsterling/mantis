@@ -19,9 +19,9 @@ export function EditModal({ content }) {
         title: form.values.title,
       }),
     };
-    const res = await fetch(`/api/stories/${content.id}`, requestOptions).then(
-      (result) => console.log(result)
-    );
+    // const res = await fetch(`/api/stories/${content.id}`, requestOptions).then(
+    //   (result) =>
+    // );
     setOpened(false);
   };
   return (

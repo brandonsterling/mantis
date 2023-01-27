@@ -11,6 +11,7 @@ import {
   Text,
   Modal,
   ActionIcon,
+  Input,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import React, { useEffect, useState } from "react";
@@ -19,13 +20,14 @@ import { useForm } from "@mantine/form";
 import CompanySearch from "../../components/CompanySearch";
 import { useApplication } from "../../hooks/useApplication";
 import { useApplications } from "../../hooks/useApplications";
+import { RTE } from "../../components/RTE";
 const useStyles = createStyles((theme) => ({
   root: {
-    border: "1px solid transparent",
+    // border: "1px solid transparent",
   },
   content: {
-    padding: 0,
-    fontSize: theme.fontSizes.xs,
+    // padding: 0,
+    fontSize: theme.fontSizes.sm,
   },
 }));
 
@@ -85,12 +87,26 @@ function AddAppModal() {
                 label="Post link"
               />
               <div>
-                <Textarea
+                <Input.Wrapper
+                  {...form.getInputProps("description")}
+                  label="Job description"
+                >
+                  <RTE
+                    form={form}
+                    content=""
+                    fieldName="description"
+                    classNames={{
+                      content: classes.content,
+                      root: classes.root,
+                    }}
+                  />
+                </Input.Wrapper>
+                {/* <Textarea
                   minRows={5}
                   label="Description"
                   autosize
                   {...form.getInputProps("description")}
-                />
+                /> */}
               </div>
               <Button type="submit">Submit</Button>
             </Stack>

@@ -49,8 +49,7 @@ function EditableQuestion({ appId, toggle }) {
         applicationId: appId,
       }),
     };
-    const res = await fetch(`/api/questions`, requestOptions).then(
-      (result) => console.log(result),
+    const res = await fetch(`/api/questions`, requestOptions).then((result) =>
       toggle()
     );
     return res;

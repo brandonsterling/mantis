@@ -23,8 +23,13 @@ import { EditModal } from "../Modals/EditModal";
 import { AddNoteModal } from "../Modals/AddNoteModal";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useNote } from "../../../../../../hooks/useNote";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 
 dayjs.extend(relativeTime);
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -63,30 +68,26 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function NoteCard({ content, appId }) {
-  const lastUpdated = dayjs().from(dayjs(content.updatedAt), true);
   const { classes, cx } = useStyles();
   const { hovered, ref } = useHover();
+  const { update } = useNote();
+
+  const local = dayjs.tz.guess();
 
   const deleteNote = async () => {
     const requestOptions = {
       method: "DELETE",
     };
-    const res = await fetch(`/api/notes/${content.id}`, requestOptions).then(
-      (result) => console.log(result)
-    );
+    // const res = await fetch(`/api/notes/${content.id}`, requestOptions).then(
+    //   (result) =>
+    // );
   };
 
   const updateNote = async (formContent) => {
-    const requestOptions = {
-      method: "PUT",
-      body: JSON.stringify({
-        content: formContent,
-        id: content ? content.id : undefined,
-      }),
+    const updatedNote = {
+      content: formContent,
     };
-    const res = await fetch(`/api/notes/${content.id}`, requestOptions).then(
-      (result) => console.log(result)
-    );
+    update.mutate({ note: updatedNote, id: content.id });
   };
 
   if (!content) {
@@ -107,7 +108,7 @@ function NoteCard({ content, appId }) {
       <Card.Section px="md" py="xs" className={classes.footer}>
         <Group pt="md" position="apart">
           <Text py="xs" size="xs" color="dimmed">
-            Last updated {lastUpdated} ago
+            {dayjs().to(dayjs.utc(content.updatedAt).tz(local))}
           </Text>
           <Group>
             <DeleteModal

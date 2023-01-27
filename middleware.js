@@ -11,7 +11,6 @@ export async function middleware(req) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  console.log(session);
   // Check auth condition
   if (session?.user) {
     // Authentication successful, forward request to protected route.

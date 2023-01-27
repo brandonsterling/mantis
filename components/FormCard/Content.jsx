@@ -79,9 +79,11 @@ export function Content({ children }) {
 
   return (
     <Grid.Col span={8}>
-      <Card.Section p="md" inheritPadding>
-        {children}
-      </Card.Section>
+      <div style={{ height: "100%" }}>
+        <Card.Section p="md" inheritPadding>
+          {children}
+        </Card.Section>
+      </div>
     </Grid.Col>
   );
 }

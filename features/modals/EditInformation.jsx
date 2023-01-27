@@ -27,19 +27,19 @@ function EditInformation({ context, id, innerProps }) {
       }),
     };
     const res = await fetch(`/api/applications/${appId}`, requestOptions).then(
-      (result) => console.log(result),
-      mutate(
-        `/api/applications/${appId}`,
-        {
-          ...innerProps.data,
-          role: role,
-          description: description,
-          company: company,
-        },
-        {
-          revalidate: false,
-        }
-      ),
+      (result) =>
+        mutate(
+          `/api/applications/${appId}`,
+          {
+            ...innerProps.data,
+            role: role,
+            description: description,
+            company: company,
+          },
+          {
+            revalidate: false,
+          }
+        ),
       context.closeModal(id)
     );
     return res;

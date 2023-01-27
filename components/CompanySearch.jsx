@@ -45,9 +45,7 @@ function CompanySearch({ form }) {
         setData(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, [debounced]);
 
   return (

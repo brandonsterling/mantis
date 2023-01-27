@@ -39,16 +39,11 @@ export const useApplication = (id) => {
         stories (*),
         tasks (*),
         questions(*),
-        notes (*),
-        _application_to_question(*, question:questions(*))
+        notes (*)
       `
         )
         .eq("id", id)
-        .single()
-        .order("favorite", {
-          foreignTable: "_application_to_question",
-          ascending: false,
-        });
+        .single();
 
       if (error) {
         throw new Error(error.message);
@@ -56,7 +51,7 @@ export const useApplication = (id) => {
 
       // const { Story: stories, ...otherProps } = data;
       // const newData = { stories, ...otherProps };
-      // console.log(data, newData);
+      //
       return data;
     },
     {
@@ -72,6 +67,32 @@ export const useApplication = (id) => {
   const create = useMutation(
     async (application) => {
       const appWithUser = { ...application, user_id: user?.id };
+
+      const description = application.description;
+
+      if (description.replace(/(\r\n|\n|\r)/gm, "").length < 10) {
+        appWithUser = {
+          ...app,
+          keywords: "",
+        };
+      } else {
+        const response = await fetch("/api/openai", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({ description }),
+        });
+        const res = await response.json();
+        const cleanText = res.result.replace(/(\r\n|\n|\r)/gm, "");
+
+        appWithUser = {
+          ...appWithUser,
+          keywords: cleanText,
+        };
+      }
+
       const { data, error } = await supabase
         .from("applications")
         .insert(appWithUser)
@@ -96,6 +117,31 @@ export const useApplication = (id) => {
 
   const update = useMutation(
     async ({ appId, app }) => {
+      const description = app.description;
+
+      if (description.replace(/(\r\n|\n|\r)/gm, "").length < 10) {
+        app = {
+          ...app,
+          keywords: "",
+        };
+      } else {
+        const response = await fetch("/api/openai", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({ description }),
+        });
+        const res = await response.json();
+        const cleanText = res.result.replace(/(\r\n|\n|\r)/gm, "");
+
+        app = {
+          ...app,
+          keywords: cleanText,
+        };
+      }
+
       const { data, error } = await supabase
         .from("applications")
         .update(app)
@@ -105,7 +151,7 @@ export const useApplication = (id) => {
         throw new Error(error.message);
       }
 
-      return data;
+      return { data, appId };
     },
 
     {
@@ -128,7 +174,7 @@ export const useApplication = (id) => {
         // //   (previousCache) => [...previousCache, ...app]
         // // );
         // const prevApp = queryClient.getQueryData(["application", appId]);
-        // console.log(prevApp);
+        //
         // const updatedApp = {
         //   ...prevApp,
         //   ...app,
@@ -145,10 +191,10 @@ export const useApplication = (id) => {
         );
       },
 
-      // onSuccess: ({ appId, app }) => {
-      //   queryClient.invalidateQueries(["application", appId]);
-      //   queryClient.invalidateQueries(["applications", user?.id]);
-      // },
+      onSuccess: ({ appId, data }) => {
+        queryClient.invalidateQueries(["application", appId]);
+        // queryClient.invalidateQueries(["applications", user?.id]);
+      },
     }
   );
   return {

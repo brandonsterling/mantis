@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import TabPanelHeader from "./TabPanelHeader";
 import NoteCard from "../Cards/NoteCard";
 import { useForm } from "@mantine/form";
-
+import { useNote } from "../../../../../../hooks/useNote";
 const useStyles = createStyles((theme) => ({
   item: {
     "&[data-active]": {
@@ -30,6 +30,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function ModalContent({ appId }) {
+  const { create } = useNote();
   const form = useForm({
     initialValues: {
       content: "",
@@ -38,16 +39,8 @@ function ModalContent({ appId }) {
   const [opened, setOpened] = useState(false);
 
   const addNote = async () => {
-    const requestOptions = {
-      method: "POST",
-      body: JSON.stringify({
-        content: form.values.content,
-        applicationId: parseInt(appId),
-      }),
-    };
-    const res = await fetch(`/api/notes`, requestOptions).then((result) =>
-      console.log(result)
-    );
+    create.mutate({ note: form.values, appId: appId });
+
     setOpened(false);
   };
   return (
@@ -81,7 +74,7 @@ function ModalContent({ appId }) {
         color="dark"
         onClick={() => setOpened(true)}
       >
-        Add
+        + New
       </Button>
     </>
   );
@@ -93,6 +86,7 @@ function Notes({ appId, notes }) {
   if (!notes) {
     return;
   }
+
   const listItems = notes.map((note) => (
     <NoteCard content={note} appId={appId} />
   ));

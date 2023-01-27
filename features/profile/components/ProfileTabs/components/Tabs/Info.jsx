@@ -7,6 +7,9 @@ import {
   Textarea,
   Tabs,
   Input,
+  Text,
+  Badge,
+  Group,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import React, { useEffect, useState } from "react";
@@ -104,6 +107,13 @@ function Info({ appId, application }) {
         </SimpleGrid>
         <div>
           <Input.Wrapper id="input-demo" label="Description">
+            {application?.keywords && (
+              <Group my="md" spacing="xs">
+                {application?.keywords?.split(",").map((word) => {
+                  return <Badge>{word}</Badge>;
+                })}
+              </Group>
+            )}
             <RTE
               form={form}
               content={application.description}

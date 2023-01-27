@@ -18,9 +18,9 @@ export function AddNoteModal({ note, appId, action, onSubmit, hovered }) {
         appId: appId ? appId : undefined,
       }),
     };
-    const res = await fetch(`/api/notes`, requestOptions).then((result) =>
-      console.log(result)
-    );
+    // const res = await fetch(`/api/notes`, requestOptions).then((result) =>
+
+    // );
     setOpened(false);
   };
 

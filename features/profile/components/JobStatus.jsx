@@ -42,7 +42,6 @@ const StatusTarget = forwardRef(({ status, ...others }, ref) => {
   const { classes } = useStyles();
   return (
     <Button
-      onClick={() => console.log(status)}
       ref={ref}
       compact
       variant="outline"

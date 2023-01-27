@@ -24,8 +24,7 @@ function QuestionModal({ context, id, innerProps }) {
         applicationId: appId,
       }),
     };
-    const res = await fetch(`/api/questions`, requestOptions).then(
-      (result) => console.log(result),
+    const res = await fetch(`/api/questions`, requestOptions).then((result) =>
       context.closeModal(id)
     );
     return res;

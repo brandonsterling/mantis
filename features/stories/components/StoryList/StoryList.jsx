@@ -35,8 +35,6 @@ export function StoryList({ handleClick, selected }) {
     );
   }
 
-  console.log(stories.data);
-
   const storyCards = stories.data.map((story) => {
     return (
       <ListCard

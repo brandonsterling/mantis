@@ -166,7 +166,7 @@ const getSortedListIssues = (issues, status) =>
 const getLastPosition = (apps, status) => {
   const sortedIssues = getSortedListIssues(apps, status);
   const lastPosition = sortedIssues[sortedIssues.length - 1];
-  console.log(lastPosition);
+
   return lastPosition.priority;
 };
 

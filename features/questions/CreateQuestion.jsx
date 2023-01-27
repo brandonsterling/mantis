@@ -34,7 +34,6 @@ function Main() {
   const { create } = useQuestion();
 
   const addQuestion = async (vals) => {
-    console.log(vals);
     create.mutate({ question: vals });
 
     // setOpened(false);
@@ -50,7 +49,7 @@ function Main() {
 function Side() {
   return (
     <MediaQuery smallerThan="xl" styles={{ display: "none" }}>
-      <Grid.Col sx={{ backgroundColor: "#eeeeee", height: "500px" }} span={4}>
+      <Grid.Col sx={{ height: "500px" }} span={4}>
         <Card.Section p="md" inheritPadding>
           <ResourcesGrid />
           {/* <Text weight="bold">Resources</Text> */}

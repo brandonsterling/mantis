@@ -28,7 +28,7 @@ function NewJobModal({ lists }) {
       .then((newApp) => {
         const listOrder = lists[1].apps;
         listOrder.push(newApp.id.toString());
-        console.log(listOrder);
+
         const requestOptions = {
           method: "PUT",
           body: JSON.stringify({

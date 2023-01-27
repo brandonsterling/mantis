@@ -77,9 +77,9 @@ function ModalContent({ appId }) {
         applicationId: appId,
       }),
     };
-    const res = await fetch(`/api/tasks`, requestOptions).then((result) =>
-      console.log(result)
-    );
+    // const res = await fetch(`/api/tasks`, requestOptions).then((result) =>
+
+    // );
   };
   return (
     <>

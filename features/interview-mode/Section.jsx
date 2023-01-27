@@ -4,8 +4,7 @@ import React from "react";
 
 function Section({ section, children, ...props }) {
   return (
-    <>
-      <div id={section}> </div>
+    <div id={section}>
       <div style={{ position: "relative" }}>
         <Card.Section {...props} inheritPadding p="xl">
           <Link href={`#${section}`}>
@@ -17,7 +16,7 @@ function Section({ section, children, ...props }) {
           <Grid mt="sm">{children}</Grid>
         </Card.Section>
       </div>
-    </>
+    </div>
   );
 }
 

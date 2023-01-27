@@ -28,7 +28,8 @@ function FormCard({ children }) {
               marginLeft: "auto",
               marginRight: "auto",
               minHeight: "500px",
-
+              maxHeight: "calc(100vh - 120px)",
+              overflow: "auto",
               width: "75%",
             }}
             shadow="md"

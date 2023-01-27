@@ -96,7 +96,6 @@ function TableOfContents() {
     setActive(
       getActiveElement(slugs.current.map((d) => d.getBoundingClientRect()))
     );
-    console.log(active);
   };
 
   useEffect(() => {

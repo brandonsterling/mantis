@@ -45,15 +45,7 @@ function QuestionTab({ data, appId }) {
         action={
           <>
             {/* <ExistingQuestionModal data={data} appId={appId} /> */}
-            <Button
-              onClick={() => router.push("/questions")}
-              size="xs"
-              compact
-              variant="outline"
-              color="dark"
-            >
-              Edit
-            </Button>
+
             <NewQuestionModal appId={appId} />
           </>
         }

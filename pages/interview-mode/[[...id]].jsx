@@ -87,8 +87,6 @@ function Page() {
 
   const [active, setActive] = useState();
 
-  console.log(applications?.data);
-
   const { application } = useApplication(active ? active : null);
 
   const { data } = application;
@@ -98,7 +96,7 @@ function Page() {
   }
 
   // if (application.isLoading && applications?.data) {
-  //   console.log(applications.data);
+  //
   //   return (
   //     <Card>
   //       <Select

@@ -90,13 +90,13 @@ function NewQuestionModal({ appId }) {
         <CreateQuestionForm addQuestion={addQuestion} />
       </Modal>
       <Button
-        variant="outline"
         size="xs"
         compact
         color="dark"
+        variant="outline"
         onClick={() => setOpened(true)}
       >
-        New Quesiton
+        + New
       </Button>
     </>
   );

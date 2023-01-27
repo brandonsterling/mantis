@@ -1,16 +1,16 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
-export const useQuestion = (id) => {
+export const useNote = (id) => {
   const user = useUser();
   const queryClient = useQueryClient();
   const supabase = useSupabaseClient();
 
-  const question = useQuery(
-    ["question", id],
+  const note = useQuery(
+    ["note", id],
     async () => {
       const { data, error } = await supabase
-        .from("questions")
+        .from("notes")
         .select(
           `
         *,
@@ -30,8 +30,8 @@ export const useQuestion = (id) => {
       initialData: () => {
         if (id) {
           const res = queryClient
-            .getQueryData(["questions", user?.id])
-            ?.find((question) => question.id == id);
+            .getQueryData(["notes", user?.id])
+            ?.find((note) => note.id == id);
 
           return res;
         }
@@ -41,19 +41,18 @@ export const useQuestion = (id) => {
   );
 
   const create = useMutation(
-    async ({ question, appId }) => {
-      const questionWithUser = { ...question, user_id: user?.id };
+    async ({ note, appId }) => {
+      const noteWithUser = {
+        ...note,
+        user_id: user?.id,
+        application_id: appId,
+      };
       const { data, error } = await supabase
-        .from("questions")
-        .insert(questionWithUser)
+        .from("notes")
+        .insert(noteWithUser)
         .select()
         .single();
 
-      if (appId) {
-        await supabase
-          .from("_application_to_question")
-          .insert({ question_id: data.id, application_id: appId });
-      }
       if (error) {
         throw new Error(error.message);
       }
@@ -64,21 +63,19 @@ export const useQuestion = (id) => {
       onSuccess: (result) => {
         const { appId, data } = result;
 
-        queryClient.setQueryData(["questions", user?.id], (previousCache) => [
+        queryClient.setQueryData(["notes", user?.id], (previousCache) => [
           ...previousCache,
           data,
         ]);
-        if (appId) {
-        }
       },
     }
   );
 
   const update = useMutation(
-    async ({ id, questionData }) => {
+    async ({ id, note }) => {
       const { data, error } = await supabase
-        .from("questions")
-        .update(questionData)
+        .from("notes")
+        .update(note)
         .eq("id", id);
 
       if (error) {
@@ -87,23 +84,23 @@ export const useQuestion = (id) => {
       return data;
     },
     {
-      onMutate: async ({ id, questionData }) => {
-        const prevQuestion = queryClient.getQueryData(["question", id]);
-        const updatedQuestion = {
-          ...prevQuestion,
-          ...questionData,
+      onMutate: async ({ id, note }) => {
+        const prevNote = queryClient.getQueryData(["note", id]);
+        const updatedNote = {
+          ...prevNote,
+          ...note,
         };
 
-        queryClient.setQueryData(["question", id], updatedQuestion);
+        queryClient.setQueryData(["note", id], updatedNote);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries(["questions", user?.id]);
+        queryClient.invalidateQueries(["notes", user?.id]);
         // queryClient.invalidateQueries(["applications", user?.id]);
       },
     }
   );
   return {
-    question,
+    note,
     create,
     update,
   };

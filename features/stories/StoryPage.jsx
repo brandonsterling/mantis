@@ -25,8 +25,10 @@ const useStyles = createStyles((theme) => ({
   mainCol: {
     flex: "1 auto",
     flexBasis: "70%",
-    marginBottom: 50,
+
     overflowY: "scroll",
+
+    backgroundColor: theme.colors.gray[0],
   },
 }));
 
@@ -34,13 +36,20 @@ export function StoryPage() {
   const { classes } = useStyles();
   const router = useRouter();
   const [selected, setSelected] = useState(null);
+  const { id } = router.query;
 
   const handleClick = (storyId) => {
-    // if (router.pathname.includes("stories")) {
-    //   router.push(`/stories/${storyId}`);
-    // }
+    if (router.pathname.includes("stories")) {
+      router.push(`/stories/${storyId}`);
+    }
     setSelected(storyId);
   };
+
+  useEffect(() => {
+    if (id && id[0] !== selected) {
+      setSelected(id[0]);
+    }
+  }, [router]);
 
   return (
     <div className={classes.main}>

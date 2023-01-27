@@ -9,8 +9,6 @@ export const useStory = (storyId) => {
   const story = useQuery(
     ["story", storyId],
     async () => {
-      console.log("finding story");
-
       const { data, error } = await supabase
         .from("stories")
         .select(
@@ -70,7 +68,6 @@ export const useStory = (storyId) => {
 
   const update = useMutation(
     async ({ id, storyData }) => {
-      console.log("update runnig");
       const { data, error } = await supabase
         .from("stories")
         .update(storyData)
@@ -123,7 +120,6 @@ export const useStory = (storyId) => {
 
   const addLink = useMutation(
     async ({ storyId, appId }) => {
-      console.log("running add");
       const newLink = { story_id: storyId, application_id: appId };
       const { data, error } = await supabase
         .from("_application_to_story")

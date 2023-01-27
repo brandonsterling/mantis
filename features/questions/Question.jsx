@@ -8,6 +8,7 @@ import {
   createStyles,
   Grid,
   Group,
+  Input,
   Loader,
   MediaQuery,
   MultiSelect,
@@ -32,6 +33,7 @@ import { useQuestion } from "../../hooks/useQuestion";
 import { useRelatedQuestion } from "../../hooks/useRelatedQuestion";
 import AppMultiSelect from "../../components/AppMultiSelect";
 import AddTemplate from "../stories/components/AddTemplate";
+import { RadioCard } from "./CreateQuestionForm";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -40,11 +42,11 @@ const useStyles = createStyles((theme) => ({
   },
 
   rteRoot: {
-    border: `1px solid transparent`,
-
-    "&:hover": {
-      border: `1px solid ${theme.colors.blue[6]}`,
-    },
+    // maxHeight: "200px",
+    // overflowY: "scroll",
+    // "&:hover": {
+    //   border: `1px solid ${theme.colors.blue[6]}`,
+    // },
   },
 
   label: {
@@ -107,6 +109,7 @@ function Main({ selected }) {
     initialValues: {
       question: data.question,
       answer: data.answer,
+      type: data.type,
     },
   });
 
@@ -117,6 +120,7 @@ function Main({ selected }) {
       let updatedQuestion = {
         answer: form.values.answer,
         question: form.values.question,
+        type: form.values.type,
       };
       update.mutate({
         id: data.id,
@@ -132,6 +136,7 @@ function Main({ selected }) {
       form.setValues({
         question: data.question,
         answer: data.answer,
+        type: data.type,
       });
     }
   }, [selected]);
@@ -143,19 +148,41 @@ function Main({ selected }) {
           <Textarea
             my={10}
             autosize
-            classNames={{
-              input: classes.questionInput,
-              root: classes.questionRoot,
-            }}
+            label="Question"
+            // classNames={{
+            //   input: classes.questionInput,
+            //   root: classes.questionRoot,
+            // }}
             {...form.getInputProps("question")}
           />
-          <RTE
-            classNames={{ root: classes.rteRoot }}
-            selected={selected}
-            form={form}
-            content={data.answer}
-            fieldName="answer"
-          />
+          <Input.Wrapper
+            {...form.getInputProps("type")}
+            label="Choose who will be asking this question"
+          >
+            <SimpleGrid my="sm" cols={2}>
+              <RadioCard
+                handleChange={form.setFieldValue}
+                value={form.values.type}
+                label="You"
+                type="ask"
+              />
+              <RadioCard
+                handleChange={form.setFieldValue}
+                value={form.values.type}
+                label="Interviewer"
+                type="answer"
+              />
+            </SimpleGrid>
+          </Input.Wrapper>
+          <Input.Wrapper label="Answer">
+            <RTE
+              classNames={{ root: classes.rteRoot }}
+              selected={selected}
+              form={form}
+              content={data.answer}
+              fieldName="answer"
+            />
+          </Input.Wrapper>
         </>
       )}
     </Content>
@@ -172,7 +199,6 @@ function SideContent({ selected }) {
   };
 
   const handleRemove = (value) => {
-    console.log("removing");
     removeLink.mutate({ question_id: selected, appId: value });
   };
 

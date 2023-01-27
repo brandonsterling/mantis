@@ -72,7 +72,7 @@ function EditableCards({ content, appId, toggle, compact }) {
       method: "DELETE",
     };
     const res = await fetch(`/api/stories/${content.id}`, requestOptions).then(
-      (result) => console.log(result)
+      (result) =>
     );
   };
 

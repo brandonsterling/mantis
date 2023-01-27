@@ -64,6 +64,7 @@ function MainSection({ data }) {
         <Text> {data.role}</Text>
       </Card.Section>
       <Divider />
+
       <Section section="Questions">
         {data.questions.map((question, index) => {
           return (
