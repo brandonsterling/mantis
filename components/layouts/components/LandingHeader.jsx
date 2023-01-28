@@ -141,13 +141,19 @@ export function LandingHeader() {
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
         <Group>
-          <ThemeIcon>
+          <ThemeIcon color="dark">
             <IoLocationOutline size="25" />
           </ThemeIcon>
           <Text className={classes.title}>mantis</Text>
         </Group>
         <Group>
-          <Button variant="outline" size="sm" component="a" href="/sign-in">
+          <Button
+            color="dark"
+            variant="outline"
+            size="sm"
+            component="a"
+            href="/sign-in"
+          >
             Sign In
           </Button>
           {/* <Button component="a" href="/sign-up">
