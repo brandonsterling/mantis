@@ -141,9 +141,6 @@ function Page() {
         <div className={classes.wrapper}>
           <Container className={classes.container}>
             <Card withBorder px="xl" sx={{ height: "100%" }}>
-              <Title mb="sm" order={2}>
-                Applications
-              </Title>
               {!application?.data ? (
                 <ApplicationList
                   setActive={setActive}

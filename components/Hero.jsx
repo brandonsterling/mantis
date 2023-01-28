@@ -1,10 +1,10 @@
 import {
   createStyles,
-  Image,
   Container,
   Title,
   Button,
   Group,
+  Image,
   Text,
   List,
   ThemeIcon,
@@ -12,7 +12,6 @@ import {
   Paper,
 } from "@mantine/core";
 import { useRouter } from "next/router";
-import { BsCheck } from "react-icons/bs";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -60,10 +59,10 @@ const useStyles = createStyles((theme) => ({
 
   highlight: {
     position: "relative",
-    backgroundColor: theme.fn.variant({
-      variant: "light",
-      color: theme.primaryColor,
-    }).background,
+    // backgroundColor: theme.fn.variant({
+    //   variant: "light",
+    //   color: theme.primaryColor,
+    // }).background,
     borderRadius: theme.radius.sm,
     padding: "4px 12px",
   },
@@ -78,10 +77,18 @@ export function Hero() {
         <div className={classes.content}>
           <Group position="center">
             <Title className={classes.title}>
-              A <span className={classes.highlight}>modern</span> Job
-              Application <br /> tracker
+              Make your
+              <Text
+                className={classes.highlight}
+                component="span"
+                variant="gradient"
+                gradient={{ from: "pink", to: "yellow" }}
+              >
+                dream job
+              </Text>
+              a reality
             </Title>
-            <Text color="dimmed" mt="md">
+            <Text color="dimmed">
               Track your job applications and keep your job search organized,
               all in one place.
             </Text>
@@ -111,7 +118,6 @@ export function Hero() {
       <Paper shadow="lg">
         <Image
           src="/kanban_demo.png"
-          // width={1000}
           ml="auto"
           mr="auto"
           className={classes.image}

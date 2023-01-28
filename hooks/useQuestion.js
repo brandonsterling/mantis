@@ -99,7 +99,7 @@ export const useQuestion = (id) => {
         id: "load-data",
         color: "teal",
         title: "Success!",
-        message: "Your question has been created",
+        message: "Your question has been updated",
         icon: <BsCheckLg size={16} />,
         autoClose: 2000,
       });

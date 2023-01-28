@@ -17,9 +17,9 @@ function ApplicationList({ applications, setActive }) {
 
   return (
     <>
-      {/* <Title mb="sm" order={2}>
+      <Title mb="sm" order={2}>
         Applications
-      </Title> */}
+      </Title>
       <SimpleGrid cols={3}>{applicationCards}</SimpleGrid>
     </>
   );
