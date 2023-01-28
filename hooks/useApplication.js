@@ -1,5 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { showNotification, updateNotification } from "@mantine/notifications";
+import { BsCheckLg } from "react-icons/bs";
 
 export const useApplications = () => {
   const user = useUser();
@@ -66,13 +68,21 @@ export const useApplication = (id) => {
 
   const create = useMutation(
     async (application) => {
+      showNotification({
+        id: "load-data",
+        loading: true,
+        title: "Creating your application",
+        autoClose: false,
+        disallowClose: false,
+      });
+
       const appWithUser = { ...application, user_id: user?.id };
 
       const description = application.description;
 
       if (description.replace(/(\r\n|\n|\r)/gm, "").length < 30) {
         appWithUser = {
-          ...app,
+          ...appWithUser,
           keywords: "",
         };
       } else {
@@ -102,6 +112,16 @@ export const useApplication = (id) => {
       if (error) {
         throw new Error(error.message);
       }
+
+      updateNotification({
+        id: "load-data",
+        color: "teal",
+        title: "Success!",
+        message: "Your application has been succesfully created",
+        icon: <BsCheckLg size={16} />,
+        autoClose: 2000,
+      });
+
       return data;
     },
 

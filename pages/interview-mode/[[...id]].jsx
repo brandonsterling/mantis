@@ -13,6 +13,7 @@ import {
   UnstyledButton,
 } from "@mantine/core";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -42,7 +43,7 @@ const useStyles = createStyles((theme) => ({
     paddingTop: 10,
   },
   container: {
-    marginBottom: theme.spacing.xl * 5,
+    marginTop: theme.spacing.xl * 3,
   },
   grid: {
     height: "100%",
@@ -82,6 +83,9 @@ const useStyles = createStyles((theme) => ({
 
 function Page() {
   const { classes } = useStyles();
+  const router = useRouter();
+
+  const { id } = router.query;
 
   const { applications } = useApplications({ select: transformApps });
 
@@ -91,9 +95,17 @@ function Page() {
 
   const { data } = application;
 
-  if (applications.isLoading) {
-    return <div>loading..</div>;
-  }
+  useEffect(() => {
+    if (router.isReady && id) {
+      setActive(id[0]);
+    } else {
+      setActive(null);
+    }
+  }, [router]);
+
+  // if (applications.isLoading) {
+  //   return <div>loading..</div>;
+  // }
 
   // if (application.isLoading && applications?.data) {
   //
@@ -114,7 +126,7 @@ function Page() {
       <div className={classes.leftCol}>
         <div className={classes.sideWrapper}>
           {application?.data && (
-            <UnstyledButton onClick={() => setActive(null)}>
+            <UnstyledButton onClick={() => router.push("/interview-mode")}>
               <Group>
                 <BsChevronLeft size={10} />
                 <Anchor size="sm" weight={500} color="dimmed">
@@ -129,10 +141,13 @@ function Page() {
         <div className={classes.wrapper}>
           <Container className={classes.container}>
             <Card withBorder px="xl" sx={{ height: "100%" }}>
+              <Title mb="sm" order={2}>
+                Applications
+              </Title>
               {!application?.data ? (
                 <ApplicationList
                   setActive={setActive}
-                  applications={applications?.data}
+                  applications={applications}
                 />
               ) : (
                 <MainSection data={data} />

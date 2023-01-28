@@ -1,5 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { showNotification, updateNotification } from "@mantine/notifications";
+import { BsCheckLg } from "react-icons/bs";
 
 export const useQuestion = (id) => {
   const user = useUser();
@@ -57,6 +59,15 @@ export const useQuestion = (id) => {
       if (error) {
         throw new Error(error.message);
       }
+
+      showNotification({
+        id: "load-data",
+        color: "teal",
+        title: "Success!",
+        message: "Your question has been created",
+        icon: <BsCheckLg size={16} />,
+        autoClose: 2000,
+      });
       return { data, appId };
     },
 
@@ -84,6 +95,15 @@ export const useQuestion = (id) => {
       if (error) {
         throw new Error(error.message);
       }
+      showNotification({
+        id: "load-data",
+        color: "teal",
+        title: "Success!",
+        message: "Your question has been created",
+        icon: <BsCheckLg size={16} />,
+        autoClose: 2000,
+      });
+
       return data;
     },
     {

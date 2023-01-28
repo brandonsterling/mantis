@@ -75,7 +75,7 @@ export default function AppMultiSelect({
 
   const relatedApps = relatedData?.map((app) => app.application_id) || [];
 
-  if (!applications.data) return <div>hi</div>;
+  // if (!applications.data) return <div>hi</div>;
 
   const Item = forwardRef(({ label, value, ...others }, ref) => {
     return (
@@ -93,7 +93,7 @@ export default function AppMultiSelect({
     <MultiSelect
       classNames={classes}
       className={classes.root}
-      data={applications?.data}
+      data={applications?.data ? applications.data : []}
       value={relatedApps}
       valueComponent={({ value, label, onRemove }) => (
         <Value

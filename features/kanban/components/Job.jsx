@@ -59,7 +59,7 @@ function Job({ job, setActive }) {
 
   const handleClick = () => {
     if (router.asPath.includes("interview-mode")) {
-      setActive(job.id);
+      router.push(`/interview-mode/${job.id}`);
     } else {
       router.push(`/applications/${job.id}`);
     }

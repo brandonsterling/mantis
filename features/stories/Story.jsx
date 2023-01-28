@@ -8,6 +8,7 @@ import {
   createStyles,
   Grid,
   Group,
+  Input,
   Loader,
   MediaQuery,
   MultiSelect,
@@ -183,16 +184,17 @@ export function SideContent({ selected }) {
 
   return (
     <Side>
-      {relatedStoryData && (
+      <Input.Wrapper label="Linked applications">
+        {/* {relatedStoryData && ( */}
         <AppMultiSelect
           selected={selected}
           relatedData={relatedStoryData}
           variant="default"
-          label="Linked applications"
           addLink={handleChange}
           removeLink={handleRemove}
         />
-      )}
+        {/* )} */}
+      </Input.Wrapper>
     </Side>
   );
 }

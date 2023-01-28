@@ -19,6 +19,7 @@
     "@mantine/hooks": "^5.8.4",
     "@mantine/modals": "^5.8.4",
     "@mantine/next": "^5.7.1",
+    "@mantine/notifications": "^5.10.2",
     "@mantine/rte": "^5.7.2",
     "@mantine/spotlight": "^5.8.4",
     "@mantine/tiptap": "^5.8.4",

@@ -8,6 +8,7 @@ import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { rtlCache } from "../rtl-cache";
+import { NotificationsProvider } from "@mantine/notifications";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,7 +41,7 @@ export default function App(props) {
   return (
     <>
       <Head>
-        <title>Page title</title>
+        <title>Mantis</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -81,9 +82,11 @@ export default function App(props) {
               //   colorScheme: "light",
               // }}
             >
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <NotificationsProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </NotificationsProvider>
             </MantineProvider>
           </SWRConfig>
           <ReactQueryDevtools initialIsOpen={false} />

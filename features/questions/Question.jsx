@@ -204,21 +204,22 @@ function SideContent({ selected }) {
 
   return (
     <Side>
-      {data && (
-        <AppMultiSelect
-          styles={(theme) => ({
-            input: {
-              backgroundColor: "transparent",
-              borderColor: "lightgray",
-            },
-          })}
-          label="Linked applications"
-          selected={selected}
-          relatedData={data}
-          addLink={handleChange}
-          removeLink={handleRemove}
-        />
-      )}
+      <Input.Wrapper label="Linked applications">
+        {data && (
+          <AppMultiSelect
+            styles={(theme) => ({
+              input: {
+                backgroundColor: "transparent",
+                borderColor: "lightgray",
+              },
+            })}
+            selected={selected}
+            relatedData={data}
+            addLink={handleChange}
+            removeLink={handleRemove}
+          />
+        )}
+      </Input.Wrapper>
     </Side>
   );
 }
