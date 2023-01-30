@@ -31,12 +31,12 @@ const useStyles = createStyles((theme) => ({
     // borderRightColor: theme.colors.blue[5],
     backgroundColor:
       theme.colorScheme === "dark"
-        ? theme.fn.rgba(theme.colors.blue[9], 0.45)
-        : theme.colors.blue[0],
+        ? theme.fn.rgba(theme.colors.green[9], 0.45)
+        : theme.colors.green[0],
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.blue[1]
-        : theme.colors.blue[8],
+        ? theme.colors.green[1]
+        : theme.colors.green[8],
   },
   items: {
     // borderRight: `1px solid ${

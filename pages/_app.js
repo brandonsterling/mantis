@@ -3,7 +3,7 @@ import { MantineProvider, createStyles } from "@mantine/core";
 import "../styles/globals.css";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SWRConfig } from "swr";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -37,6 +37,9 @@ export default function App(props) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   const Layout = Component.Layout || ((children) => <>{children}</>);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
@@ -83,9 +86,11 @@ export default function App(props) {
               // }}
             >
               <NotificationsProvider>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
+                <div style={{ visibility: !mounted ? "hidden" : "" }}>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </div>
               </NotificationsProvider>
             </MantineProvider>
           </SWRConfig>
