@@ -41,9 +41,10 @@ export const useApplication = (id) => {
         stories (*),
         tasks (*),
         questions(*),
-        notes (*)
+        notes!notes_application_id_fkey(*)
       `
         )
+
         .eq("id", id)
         .single();
 
@@ -130,6 +131,47 @@ export const useApplication = (id) => {
         queryClient.setQueryData(
           ["applications", user?.id],
           (previousCache) => [...previousCache, data]
+        );
+      },
+    }
+  );
+
+  const deleteApp = useMutation(
+    async (id) => {
+      console.log(id);
+      showNotification({
+        id: "load-data",
+        loading: true,
+        title: "Deleting your application",
+        autoClose: false,
+        disallowClose: false,
+      });
+
+      const { data, error } = await supabase
+        .from("applications")
+        .delete()
+        .eq("id", id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      updateNotification({
+        id: "load-data",
+        color: "teal",
+        title: "Success!",
+        message: "Your application has been succesfully created",
+        icon: <BsCheckLg size={16} />,
+        autoClose: 2000,
+      });
+
+      return id;
+    },
+
+    {
+      onSuccess: (id) => {
+        queryClient.setQueryData(["applications", user?.id], (previousCache) =>
+          previousCache.filter((item) => item.id !== id)
         );
       },
     }
@@ -222,5 +264,6 @@ export const useApplication = (id) => {
     application,
     create,
     update,
+    deleteApp,
   };
 };

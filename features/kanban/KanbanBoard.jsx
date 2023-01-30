@@ -26,7 +26,8 @@ function Board() {
     return (
       <>
         <Center mt="10%">
-          <AddAppModal />
+          <Loader variant="dots" size="lg" />
+          {/* <AddAppModal /> */}
         </Center>
       </>
     );
