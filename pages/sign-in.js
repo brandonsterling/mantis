@@ -31,16 +31,21 @@ function SignIn() {
         p="xl"
         withBorder
       >
-        <Text size="xl" weight={500}>
-          Mantis
-        </Text>
-
         <Auth
           redirectTo={`${redirectBaseLink}/sign-in`}
           magicLink
           supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          theme="default"
+          appearance={{
+            theme: ThemeSupa,
+            variables: {
+              default: {
+                colors: {
+                  brand: "black",
+                  brandAccent: "black",
+                },
+              },
+            },
+          }}
         />
       </Paper>
     </Box>

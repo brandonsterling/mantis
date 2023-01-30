@@ -243,7 +243,7 @@ export function MainNav() {
     <Navbar width={{ sm: 300 }} p="md" pl="lg" className={classes.navbar}>
       <Navbar.Section p={5} className={classes.header}>
         <Group>
-          <ThemeIcon>
+          <ThemeIcon color="dark">
             <IoLocationOutline size="25" />
           </ThemeIcon>
           {/* <Avatar src="https://bookface-images.s3.amazonaws.com/small_logos/7c7eb248f9e6c7fc15d545fe32d2657bb2d2fb35.png" /> */}
