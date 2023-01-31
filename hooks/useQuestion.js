@@ -74,13 +74,12 @@ export const useQuestion = (id) => {
     {
       onSuccess: (result) => {
         const { appId, data } = result;
+        queryClient.invalidateQueries(["application", appId]);
 
         queryClient.setQueryData(["questions", user?.id], (previousCache) => [
           ...previousCache,
           data,
         ]);
-        if (appId) {
-        }
       },
     }
   );

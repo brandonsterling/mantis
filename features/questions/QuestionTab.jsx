@@ -50,7 +50,7 @@ function QuestionTab({ data, appId }) {
           </>
         }
       />
-      {data && data.questions ? (
+      {data && data.questions.length > 0 ? (
         <QuestionAccordion appId={appId} data={data} />
       ) : (
         <Text>Create a question to get started!</Text>

@@ -275,6 +275,9 @@ export function MainNav() {
         </div>
       </Navbar.Section>
       <Navbar.Section className={classes.footer}>
+        {/* <Button mb="md" fullWidth color="green" variant="subtle">
+          Have Feedback?
+        </Button> */}
         <Button
           mb="md"
           fullWidth

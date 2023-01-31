@@ -138,7 +138,6 @@ export const useApplication = (id) => {
 
   const deleteApp = useMutation(
     async (id) => {
-      console.log(id);
       showNotification({
         id: "load-data",
         loading: true,

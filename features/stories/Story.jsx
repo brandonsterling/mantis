@@ -135,11 +135,8 @@ export function StoryContent({ selected }) {
         content: data.content,
       });
     }
-  }, [selected]);
+  }, [selected, data]);
 
-  if (story.isLoading && story.isFetching) {
-    return <div>loading..</div>;
-  }
   return (
     <Content>
       {data && (
