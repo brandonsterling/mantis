@@ -79,30 +79,35 @@ export const useApplication = (id) => {
 
       const appWithUser = { ...application, user_id: user?.id };
 
-      const description = application.description;
+      // const description = application.description;
 
-      if (description.replace(/(\r\n|\n|\r)/gm, "").length < 30) {
-        appWithUser = {
-          ...appWithUser,
-          keywords: "",
-        };
-      } else {
-        const response = await fetch("/api/openai", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      // if (description.replace(/(\r\n|\n|\r)/gm, "").length < 30) {
+      //   appWithUser = {
+      //     ...appWithUser,
+      //     keywords: "",
+      //   };
+      // } else {
+      //   try {
+      //     const description = description.replace(/(\r\n|\n|\r)/gm, "");
+      //     const response = await fetch("/api/openai", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
 
-          body: JSON.stringify({ description }),
-        });
-        const res = await response.json();
-        const cleanText = res.result.replace(/(\r\n|\n|\r)/gm, "");
+      //       body: JSON.stringify({ description }),
+      //     });
+      //     const res = await response.json();
+      //     const cleanText = res.result.replace(/(\r\n|\n|\r)/gm, "");
 
-        appWithUser = {
-          ...appWithUser,
-          keywords: cleanText,
-        };
-      }
+      //     appWithUser = {
+      //       ...appWithUser,
+      //       keywords: cleanText,
+      //     };
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // }
 
       const { data, error } = await supabase
         .from("applications")
