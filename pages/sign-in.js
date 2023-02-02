@@ -34,6 +34,7 @@ function SignIn() {
         <Auth
           redirectTo={`${redirectBaseLink}/sign-in`}
           magicLink
+          providers={["google"]}
           supabaseClient={supabase}
           appearance={{
             theme: ThemeSupa,
