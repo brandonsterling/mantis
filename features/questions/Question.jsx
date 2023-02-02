@@ -98,7 +98,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function Main({ selected, form, data, question }) {
+function Main({
+  selected,
+  form,
+  data,
+  loading,
+  current,
+  setLoading,
+  setCurrent,
+}) {
   const { classes } = useStyles();
 
   return (
@@ -124,7 +132,16 @@ function Main({ selected, form, data, question }) {
                 content={data.answer}
                 fieldName="answer"
                 contentButton={
-                  <GenerateAI color="blue" compact m="md" form={form} />
+                  <GenerateAI
+                    setLoading={setLoading}
+                    setCurrent={setCurrent}
+                    loading={loading}
+                    current={current}
+                    color="blue"
+                    compact
+                    m="md"
+                    form={form}
+                  />
                 }
               />
               {/* <GenerateAI color="blue" compact mt="md" form={form} /> */}
@@ -193,6 +210,9 @@ export function CardContent({ selected }) {
   const { question, update } = useQuestion(selected);
   const { data } = question;
 
+  const [loading, setLoading] = useState(false);
+  const [current, setCurrent] = useState("");
+
   if (question.isLoading && question.isFetching) {
     return <div>loading..</div>;
   }
@@ -230,11 +250,23 @@ export function CardContent({ selected }) {
         answer: data.answer,
         type: data.type,
       });
+      setCurrent("");
+      setLoading(false);
     }
-  }, [selected]);
+  }, [selected, data]);
   return (
     <>
-      <Main selected={selected} form={form} data={data} question={question} />
+      <Main
+        setLoading={setLoading}
+        setCurrent={setCurrent}
+        loading={loading}
+        current={current}
+        selected={selected}
+        form={form}
+        data={data}
+        question={question}
+        set
+      />
     </>
   );
 }

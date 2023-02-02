@@ -62,9 +62,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function GenerateAI({ form, ...props }) {
-  const [loading, setLoading] = useState(false);
-  const [current, setCurrent] = useState("");
+function GenerateAI({
+  form,
+  current,
+  loading,
+  setLoading,
+  setCurrent,
+  ...props
+}) {
   const { classes } = useStyles();
 
   const handleClick = async () => {
@@ -88,7 +93,8 @@ function GenerateAI({ form, ...props }) {
   };
 
   const isChecked = (value) => {
-    if (form) {
+    if (form && form.values) {
+      console.log(form.values);
       if (value == "title") {
         return form.values.title.length > 10;
       }

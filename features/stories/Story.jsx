@@ -105,10 +105,13 @@ export function StoryContent({ selected }) {
   const { story, update } = useStory(selected);
   const { data } = story;
 
+  const [loading, setLoading] = useState(false);
+  const [current, setCurrent] = useState("");
+
   const form = useForm({
     initialValues: {
-      title: data?.title,
-      content: data?.content,
+      title: data ? data.title : "",
+      content: data ? data.content : "",
     },
   });
 
@@ -135,6 +138,8 @@ export function StoryContent({ selected }) {
         title: data.title,
         content: data.content,
       });
+      setCurrent("");
+      setLoading(false);
     }
   }, [selected, data]);
 
@@ -162,7 +167,16 @@ export function StoryContent({ selected }) {
                 content={data.content}
                 fieldName="content"
                 contentButton={
-                  <GenerateAI color="blue" compact m="md" form={form} />
+                  <GenerateAI
+                    setLoading={setLoading}
+                    setCurrent={setCurrent}
+                    loading={loading}
+                    current={current}
+                    color="blue"
+                    compact
+                    m="md"
+                    form={form}
+                  />
                 }
               />
             </Input.Wrapper>

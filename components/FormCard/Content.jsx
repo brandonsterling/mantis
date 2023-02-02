@@ -80,7 +80,7 @@ export function Content({ children }) {
   return (
     <Grid.Col span={12}>
       <div style={{ height: "100%" }}>
-        <Card.Section p="md" inheritPadding>
+        <Card.Section px="md" inheritPadding>
           {children}
         </Card.Section>
       </div>

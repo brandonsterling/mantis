@@ -62,9 +62,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function GenerateAI({ form, ...props }) {
-  const [loading, setLoading] = useState(false);
-  const [current, setCurrent] = useState("");
+function GenerateAI({
+  form,
+  current,
+  loading,
+  setLoading,
+  setCurrent,
+  ...props
+}) {
   const { classes } = useStyles();
 
   const handleClick = async () => {
