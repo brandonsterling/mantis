@@ -78,7 +78,7 @@ export function Content({ children }) {
   const { classes } = useStyles();
 
   return (
-    <Grid.Col span={8}>
+    <Grid.Col span={12}>
       <div style={{ height: "100%" }}>
         <Card.Section p="md" inheritPadding>
           {children}

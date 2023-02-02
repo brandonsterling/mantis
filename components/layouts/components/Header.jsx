@@ -166,9 +166,8 @@ export function HeaderResponsive() {
             <BsArrowLeft size={20} />
           </ActionIcon>
           <Group>
-            <ThemeIcon>
-              <IoLocationOutline size="25" />
-            </ThemeIcon>
+            <Image width={25} src="/mantis_logo.png" />
+
             <Text className={classes.title}>mantis</Text>
           </Group>
         </Group>

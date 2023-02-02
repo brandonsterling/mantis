@@ -10,12 +10,12 @@ const useStyles = createStyles((theme) => ({
     "&:hover": {
       transform: "scale(1.03)",
 
-      borderColor: theme.colors.green[5],
+      borderColor: theme.colors.blue[5],
     },
   },
   active: {
-    backgroundColor: theme.colors.green[1],
-    borderColor: theme.colors.green[5],
+    // backgroundColor: theme.colors.blue[0],
+    borderColor: theme.colors.blue[5],
     boxShadow: theme.shadows.xs,
   },
 }));

@@ -13,6 +13,8 @@ function RTE({
   form,
   fieldName,
   template,
+  placeholder,
+  contentButton,
   editable = true,
   ...props
 }) {
@@ -20,7 +22,7 @@ function RTE({
     editable: editable,
     extensions: [
       StarterKit,
-      // Placeholder.configure({ placeholder: "This is placeholder" }),
+      Placeholder.configure({ placeholder: placeholder }),
     ],
     content: content,
     onUpdate: ({ editor }) => {
@@ -44,8 +46,9 @@ function RTE({
           </RichTextEditor.ControlsGroup>
         </BubbleMenu>
       )}
-      <RichTextEditor.Content />
+      <RichTextEditor.Content></RichTextEditor.Content>
       {template && <Template editor={editor} />}
+      {contentButton && contentButton}
     </RichTextEditor>
   );
 }

@@ -5,9 +5,14 @@ import {
   Center,
   ThemeIcon,
   Divider,
+  Group,
+  CloseButton,
+  Card,
+  Grid,
+  Button,
 } from "@mantine/core";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsQuestionSquare, BsSearch } from "react-icons/bs";
 import FormCard from "../../components/FormCard";
 import Protected from "../../components/layouts/Protected";
@@ -52,7 +57,6 @@ const useStyles = createStyles((theme) => ({
   },
   grid: {
     position: "relative",
-    // display: "flex",
     display: "flex",
     height: "100vh",
   },
@@ -63,7 +67,7 @@ const useStyles = createStyles((theme) => ({
   },
   mainCol: {
     backgroundColor: theme.colors.gray[0],
-    flex: "1 auto",
+    // flex: "1 auto",
     flexBasis: "70%",
     // paddingBottom: 50,
     overflow: "hidden",
@@ -75,12 +79,27 @@ function Page() {
   const router = useRouter();
   const { questions } = useQuestions();
   const [selected, setSelected] = useState(null);
+  const { id } = router.query;
 
   const handleClick = (questionId) => {
+    if (router.pathname.includes("questions")) {
+      router.push(`/questions/${questionId}`);
+    }
     setSelected(questionId);
   };
 
   const { data } = questions;
+
+  const handleClose = () => {
+    setSelected(null);
+    router.push(`/questions`);
+  };
+
+  useEffect(() => {
+    if (id && id[0] !== selected) {
+      setSelected(id[0]);
+    }
+  }, [router]);
 
   if (!questions || !data) {
     return (
@@ -89,6 +108,14 @@ function Page() {
       </Center>
     );
   }
+
+  const FormHeader = () => {
+    return (
+      <Card.Section pt="md" inheritPadding>
+        <CloseButton onClick={() => handleClose()} />
+      </Card.Section>
+    );
+  };
 
   return (
     // <div className={classes.grid}>
@@ -111,9 +138,16 @@ function Page() {
         <div className={classes.mainCol}>
           <FormCard>
             {!selected ? (
-              <CreateQuestion />
+              <Grid m="0">
+                <CreateQuestion />
+              </Grid>
             ) : (
-              <CardContent selected={selected} />
+              <>
+                <FormHeader />
+                <Grid m="0">
+                  <CardContent selected={selected} />
+                </Grid>
+              </>
             )}
           </FormCard>
         </div>

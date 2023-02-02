@@ -1,4 +1,11 @@
-import { createStyles, Loader, Center } from "@mantine/core";
+import {
+  createStyles,
+  Loader,
+  Center,
+  Grid,
+  Card,
+  CloseButton,
+} from "@mantine/core";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Side, SideContent, StoryContent } from "./Story";
@@ -32,6 +39,14 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const FormHeader = ({ handleClose }) => {
+  return (
+    <Card.Section pt="md" inheritPadding>
+      <CloseButton onClick={() => handleClose()} />
+    </Card.Section>
+  );
+};
+
 export function StoryPage() {
   const { classes } = useStyles();
   const router = useRouter();
@@ -43,6 +58,11 @@ export function StoryPage() {
       router.push(`/stories/${storyId}`);
     }
     setSelected(storyId);
+  };
+
+  const handleClose = () => {
+    setSelected(null);
+    router.push(`/stories`);
   };
 
   useEffect(() => {
@@ -60,11 +80,16 @@ export function StoryPage() {
         <div className={classes.mainCol}>
           <FormCard>
             {!selected ? (
-              <CreateStory />
+              <Grid m="0">
+                <CreateStory />
+              </Grid>
             ) : (
               <>
-                <StoryContent selected={selected} />
-                <SideContent selected={selected} />
+                <FormHeader handleClose={handleClose} />
+
+                <Grid m="0">
+                  <StoryContent selected={selected} />
+                </Grid>
               </>
             )}
           </FormCard>

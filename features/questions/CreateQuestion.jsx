@@ -21,27 +21,15 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import CreateQuestionForm from "./CreateQuestionForm";
 import ResourcesGrid from "../../components/ResourcesGrid";
+import Assistant from "./components/Assistant";
 
-function Main() {
+function Main({ form, addQuestion }) {
   const router = useRouter();
-  const form = useForm({
-    initialValues: {
-      question: "",
-      answer: "",
-      type: "",
-    },
-  });
-  const { create } = useQuestion();
 
-  const addQuestion = async (vals) => {
-    create.mutate({ question: vals });
-
-    // setOpened(false);
-  };
   return (
-    <Grid.Col span={8}>
+    <Grid.Col mr="xl" span={7}>
       <Card.Section p="md" inheritPadding>
-        <CreateQuestionForm addQuestion={addQuestion} />
+        <CreateQuestionForm form={form} addQuestion={addQuestion} />
       </Card.Section>
     </Grid.Col>
   );
@@ -52,29 +40,6 @@ function Side() {
       <Grid.Col sx={{ height: "500px" }} span={4}>
         <Card.Section p="md" inheritPadding>
           <ResourcesGrid />
-          {/* <Text weight="bold">Resources</Text> */}
-          {/* <SimpleGrid cols={2} mt="md">
-            <UnstyledButton>
-              <Center>
-                <Avatar src="https://logo.clearbit.com/glassdoor.com" />
-              </Center>
-
-              <Text align="center" weight="bold" size="xs" mt={7}>
-                Glassdoor
-              </Text>
-            </UnstyledButton>
-            <UnstyledButton
-              component="a"
-              href="https://leetcode.com/discuss/interview-question"
-            >
-              <Center>
-                <Avatar src="https://logo.clearbit.com/leetcode.com" />
-              </Center>
-              <Text align="center" weight="bold" size="xs" mt={7}>
-                Leetcode
-              </Text>
-            </UnstyledButton>
-          </SimpleGrid> */}
         </Card.Section>
       </Grid.Col>
     </MediaQuery>
@@ -82,10 +47,32 @@ function Side() {
 }
 
 function CreateQuestion() {
+  const { create } = useQuestion();
+
+  const form = useForm({
+    initialValues: {
+      question: "",
+      answer: "",
+      type: undefined,
+    },
+    validate: {
+      question: (value) =>
+        value.length < 2 ? "Please provide a question above" : null,
+      type: (value) =>
+        value == undefined
+          ? "Please choose who will be asking the question"
+          : null,
+    },
+  });
+
+  const addQuestion = async (vals) => {
+    create.mutate({ question: vals });
+  };
   return (
     <>
-      <Main />
-      <Side />
+      <Main form={form} addQuestion={addQuestion} />
+      <Assistant form={form} />
+      {/* <Side /> */}
     </>
   );
 }

@@ -17,6 +17,9 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useQuestion } from "../../hooks/useQuestion";
+import { useEffect } from "react";
+import Assistant from "./components/Assistant";
+import { RTE } from "../../components/RTE";
 
 const useStyles = createStyles((theme) => ({
   button: {
@@ -57,23 +60,8 @@ export function RadioCard({ value, label, type, handleChange }) {
     </UnstyledButton>
   );
 }
-function CreateQuestionForm({ addQuestion }) {
+function CreateQuestionForm({ addQuestion, form }) {
   const { create } = useQuestion();
-  const form = useForm({
-    initialValues: {
-      question: "",
-      answer: "",
-      type: undefined,
-    },
-    validate: {
-      question: (value) =>
-        value.length < 2 ? "Please provide a question above" : null,
-      type: (value) =>
-        value == undefined
-          ? "Please choose who will be asking the question"
-          : null,
-    },
-  });
 
   return (
     <form
@@ -84,17 +72,14 @@ function CreateQuestionForm({ addQuestion }) {
       <Stack>
         <Textarea
           autosize
-          withAsterisk
           label="Question"
-          placeholder="enter a title here"
+          placeholder="Write an interview question"
           {...form.getInputProps("question")}
         />
-        <Textarea
-          autosize
-          label="Answer"
-          placeholder="enter content here"
-          {...form.getInputProps("answer")}
-        />
+
+        <Input.Wrapper label="Answer">
+          <RTE form={form} content={form.values.answer} fieldName="answer" />
+        </Input.Wrapper>
 
         <Input.Wrapper
           {...form.getInputProps("type")}
@@ -118,7 +103,7 @@ function CreateQuestionForm({ addQuestion }) {
       </Stack>
 
       <Group position="right">
-        <Button fullWidth position="right" mt="xl" color="green" type="Submit">
+        <Button fullWidth position="right" mt="xl" type="Submit">
           Create
         </Button>
       </Group>

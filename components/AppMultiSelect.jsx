@@ -91,6 +91,7 @@ export default function AppMultiSelect({
   });
   return (
     <MultiSelect
+      withinPortal
       classNames={classes}
       className={classes.root}
       data={applications?.data ? applications.data : []}

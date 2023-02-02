@@ -5,6 +5,7 @@ import {
   Center,
   Container,
   Grid,
+  Input,
   MediaQuery,
   SimpleGrid,
   Stack,
@@ -19,33 +20,44 @@ import { useStory } from "../../hooks/useStory";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Assistant from "./components/Assistant";
+import { RTE } from "../../components/RTE";
 
-function Main() {
+function Main({ form }) {
   const router = useRouter();
-  const form = useForm({
-    initialValues: {
-      title: "",
-      content: "",
-    },
-  });
+
   const { create } = useStory();
 
   return (
-    <Grid.Col span={8}>
+    <Grid.Col mr="xl" span={7}>
       <Card.Section p="md" inheritPadding>
         <Stack>
           <TextInput
-            label="Title"
-            placeholder="Title"
+            fontSize="16px"
+            label="Story Title"
+            placeholder="Increased sales by 20%"
             {...form.getInputProps("title")}
           />
-          <TextInput
-            label="Content"
-            placeholder="Content"
-            {...form.getInputProps("content")}
-          />
 
-          <Button onClick={() => create.mutate(form.values)}>Submit</Button>
+          <Input.Wrapper label="Experience">
+            {/* <RTE
+              placeholder={"Led a team of 5 to increase sales by 20%"}
+              form={form}
+              styles={{ fontSize: "14px" }}
+              content={form.values.content}
+              fieldName="content"
+            /> */}
+            <Textarea
+              autosize
+              minRows={6}
+              {...form.getInputProps("content")}
+              placeholder={
+                "Designed a new feature that increased the conversion rate by 100%"
+              }
+            />
+          </Input.Wrapper>
+
+          <Button onClick={() => create.mutate(form.values)}>Create</Button>
         </Stack>
       </Card.Section>
     </Grid.Col>
@@ -86,10 +98,17 @@ function Side() {
 }
 
 function CreateStory() {
+  const form = useForm({
+    initialValues: {
+      title: "",
+      content: "",
+    },
+  });
   return (
     <>
-      <Main />
-      <Side />
+      <Main form={form} />
+      {/* <Side /> */}
+      <Assistant form={form} />
     </>
   );
 }

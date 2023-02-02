@@ -5,7 +5,11 @@ const useStyles = createStyles((theme) => ({
   header: {
     height: 60,
     padding: "0px 18px",
-    marginTop: theme.spacing.md,
+    paddingTop: theme.spacing.xl,
+  },
+  container: {
+    height: "100%",
+    // backgroundColor: theme.colors.gray[0],
   },
   list: {
     // marginBottom: "50px",
@@ -23,7 +27,7 @@ function ListContainer({ header, search, list, icon }) {
   const { classes } = useStyles();
 
   return (
-    <>
+    <div className={classes.container}>
       <Flex className={classes.header}>
         <Group>
           {icon}
@@ -35,7 +39,7 @@ function ListContainer({ header, search, list, icon }) {
       <div className={classes.list}>
         <div className={classes.inner}>{list}</div>
       </div>
-    </>
+    </div>
   );
 }
 

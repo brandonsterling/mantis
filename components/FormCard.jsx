@@ -1,7 +1,18 @@
-import { Container, Grid, Paper } from "@mantine/core";
+import {
+  Card,
+  CloseButton,
+  Container,
+  Grid,
+  Group,
+  Paper,
+  Text,
+} from "@mantine/core";
+import { useRouter } from "next/router";
 import React from "react";
 
 function FormCard({ children }) {
+  const router = useRouter();
+
   return (
     <div
       style={{
@@ -22,22 +33,23 @@ function FormCard({ children }) {
             flexGrow: 2,
           }}
         >
-          <Paper
+          <Card
             style={{
+              paddingTop: "0px",
               position: "relative",
               marginLeft: "auto",
               marginRight: "auto",
               minHeight: "500px",
               maxHeight: "calc(100vh - 120px)",
               overflow: "auto",
-              width: "75%",
+              width: "70%",
             }}
             shadow="md"
             mt="80px"
             withBorder
           >
-            <Grid m="0">{children}</Grid>
-          </Paper>
+            {children}
+          </Card>
         </div>
       </div>
     </div>

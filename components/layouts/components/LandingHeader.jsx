@@ -141,9 +141,8 @@ export function LandingHeader() {
     <Header height={HEADER_HEIGHT} className={classes.root}>
       <Container className={classes.header}>
         <Group>
-          <ThemeIcon color="dark">
-            <IoLocationOutline size="25" />
-          </ThemeIcon>
+          <Image width={25} src="/mantis_logo.png" />
+
           <Text className={classes.title}>mantis</Text>
         </Group>
         <Group>

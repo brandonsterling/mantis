@@ -37,6 +37,7 @@ import { Content } from "../../components/FormCard/Content";
 import { Side } from "../../components/FormCard/Side";
 import AppMultiSelect from "../../components/AppMultiSelect";
 import AddTemplate from "./components/AddTemplate";
+import GenerateAI from "./components/GenerateAI";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -141,25 +142,32 @@ export function StoryContent({ selected }) {
     <Content>
       {data && (
         <>
-          <Textarea
-            size="xl"
-            my={10}
-            autosize
-            classNames={{
-              input: classes.titleInput,
-              root: classes.titleRoot,
-            }}
-            order={3}
-            {...form.getInputProps("title")}
-          />
-          <RTE
-            classNames={{ root: classes.rteRoot }}
-            selected={selected}
-            form={form}
-            content={data.content}
-            fieldName="content"
-            template={AddTemplate}
-          />
+          <Stack>
+            <Textarea
+              label="Story Title"
+              autosize
+              // classNames={{
+              //   input: classes.titleInput,
+              //   root: classes.titleRoot,
+              // }}
+
+              {...form.getInputProps("title")}
+            />
+
+            <Input.Wrapper label="Answer">
+              <RTE
+                // classNames={{ root: classes.rteRoot }}
+                selected={selected}
+                form={form}
+                content={data.content}
+                fieldName="content"
+                contentButton={
+                  <GenerateAI color="blue" compact m="md" form={form} />
+                }
+              />
+            </Input.Wrapper>
+            <SideContent selected={selected} />
+          </Stack>
         </>
       )}
     </Content>
@@ -180,18 +188,16 @@ export function SideContent({ selected }) {
   };
 
   return (
-    <Side>
-      <Input.Wrapper label="Linked applications">
-        {/* {relatedStoryData && ( */}
-        <AppMultiSelect
-          selected={selected}
-          relatedData={relatedStoryData}
-          variant="default"
-          addLink={handleChange}
-          removeLink={handleRemove}
-        />
-        {/* )} */}
-      </Input.Wrapper>
-    </Side>
+    <Input.Wrapper label="Linked applications">
+      {/* {relatedStoryData && ( */}
+      <AppMultiSelect
+        selected={selected}
+        relatedData={relatedStoryData}
+        variant="default"
+        addLink={handleChange}
+        removeLink={handleRemove}
+      />
+      {/* )} */}
+    </Input.Wrapper>
   );
 }

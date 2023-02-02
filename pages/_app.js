@@ -78,7 +78,7 @@ export default function App(props) {
                     "#3ecf8e",
                   ],
                 },
-                primaryColor: "green",
+                // primaryColor: "green",
               }}
               // theme={{
               //   /** Put your mantine theme override here */

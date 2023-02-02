@@ -34,6 +34,8 @@ import { useRelatedQuestion } from "../../hooks/useRelatedQuestion";
 import AppMultiSelect from "../../components/AppMultiSelect";
 import AddTemplate from "../stories/components/AddTemplate";
 import { RadioCard } from "./CreateQuestionForm";
+import Assistant from "./components/Assistant";
+import GenerateAI from "./components/GenerateAI";
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -96,8 +98,98 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function Main({ selected }) {
+function Main({ selected, form, data, question }) {
   const { classes } = useStyles();
+
+  return (
+    <Content>
+      {data && (
+        <>
+          <Stack>
+            <Textarea
+              autosize
+              label="Question"
+              // classNames={{
+              //   input: classes.questionInput,
+              //   root: classes.questionRoot,
+              // }}
+              {...form.getInputProps("question")}
+            />
+
+            <Input.Wrapper label="Answer">
+              <RTE
+                classNames={{ root: classes.rteRoot }}
+                selected={selected}
+                form={form}
+                content={data.answer}
+                fieldName="answer"
+                contentButton={
+                  <GenerateAI color="blue" compact m="md" form={form} />
+                }
+              />
+              {/* <GenerateAI color="blue" compact mt="md" form={form} /> */}
+            </Input.Wrapper>
+            <SideContent selected={selected} />
+            <Input.Wrapper
+              {...form.getInputProps("type")}
+              label="Choose who will be asking this question"
+            >
+              <SimpleGrid my="sm" cols={2}>
+                <RadioCard
+                  handleChange={form.setFieldValue}
+                  value={form.values.type}
+                  label="You"
+                  type="ask"
+                />
+                <RadioCard
+                  handleChange={form.setFieldValue}
+                  value={form.values.type}
+                  label="Interviewer"
+                  type="answer"
+                />
+              </SimpleGrid>
+            </Input.Wrapper>
+          </Stack>
+        </>
+      )}
+    </Content>
+  );
+}
+
+function SideContent({ selected }) {
+  const { addLink, removeLink, relatedApps } = useRelatedQuestion(selected);
+
+  const { data } = relatedApps;
+
+  const handleChange = (value) => {
+    addLink.mutate({ question_id: selected, appId: value });
+  };
+
+  const handleRemove = (value) => {
+    removeLink.mutate({ question_id: selected, appId: value });
+  };
+
+  return (
+    <Input.Wrapper label="Linked applications">
+      {data && (
+        <AppMultiSelect
+          styles={(theme) => ({
+            input: {
+              backgroundColor: "transparent",
+              borderColor: "lightgray",
+            },
+          })}
+          selected={selected}
+          relatedData={data}
+          addLink={handleChange}
+          removeLink={handleRemove}
+        />
+      )}
+    </Input.Wrapper>
+  );
+}
+
+export function CardContent({ selected }) {
   const { question, update } = useQuestion(selected);
   const { data } = question;
 
@@ -140,95 +232,9 @@ function Main({ selected }) {
       });
     }
   }, [selected]);
-
-  return (
-    <Content>
-      {data && (
-        <>
-          <Textarea
-            my={10}
-            autosize
-            label="Question"
-            // classNames={{
-            //   input: classes.questionInput,
-            //   root: classes.questionRoot,
-            // }}
-            {...form.getInputProps("question")}
-          />
-          <Input.Wrapper
-            {...form.getInputProps("type")}
-            label="Choose who will be asking this question"
-          >
-            <SimpleGrid my="sm" cols={2}>
-              <RadioCard
-                handleChange={form.setFieldValue}
-                value={form.values.type}
-                label="You"
-                type="ask"
-              />
-              <RadioCard
-                handleChange={form.setFieldValue}
-                value={form.values.type}
-                label="Interviewer"
-                type="answer"
-              />
-            </SimpleGrid>
-          </Input.Wrapper>
-          <Input.Wrapper label="Answer">
-            <RTE
-              classNames={{ root: classes.rteRoot }}
-              selected={selected}
-              form={form}
-              content={data.answer}
-              fieldName="answer"
-            />
-          </Input.Wrapper>
-        </>
-      )}
-    </Content>
-  );
-}
-
-function SideContent({ selected }) {
-  const { addLink, removeLink, relatedApps } = useRelatedQuestion(selected);
-
-  const { data } = relatedApps;
-
-  const handleChange = (value) => {
-    addLink.mutate({ question_id: selected, appId: value });
-  };
-
-  const handleRemove = (value) => {
-    removeLink.mutate({ question_id: selected, appId: value });
-  };
-
-  return (
-    <Side>
-      <Input.Wrapper label="Linked applications">
-        {data && (
-          <AppMultiSelect
-            styles={(theme) => ({
-              input: {
-                backgroundColor: "transparent",
-                borderColor: "lightgray",
-              },
-            })}
-            selected={selected}
-            relatedData={data}
-            addLink={handleChange}
-            removeLink={handleRemove}
-          />
-        )}
-      </Input.Wrapper>
-    </Side>
-  );
-}
-
-export function CardContent({ selected }) {
   return (
     <>
-      <Main selected={selected} />
-      <SideContent selected={selected} />
+      <Main selected={selected} form={form} data={data} question={question} />
     </>
   );
 }
