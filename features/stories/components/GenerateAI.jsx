@@ -88,11 +88,15 @@ function GenerateAI({ form, ...props }) {
   };
 
   const isChecked = (value) => {
-    if (value == "title") {
-      return form.values.title.length > 10;
-    }
-    if (value == "content") {
-      return form.values.content.length > 10;
+    if (form) {
+      if (value == "title") {
+        return form.values.title.length > 10;
+      }
+      if (value == "content") {
+        return form.values.content.length > 10;
+      }
+    } else {
+      return false;
     }
   };
 
