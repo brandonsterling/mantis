@@ -121,9 +121,26 @@ export const useQuestion = (id) => {
       },
     }
   );
+
+  const deleteQuestion = useMutation(
+    async (id) => {
+      const { error } = await supabase.from("questions").delete().eq("id", id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["questions", user?.id]);
+        // queryClient.invalidateQueries(["applications", user?.id]);
+      },
+    }
+  );
   return {
     question,
     create,
     update,
+    deleteQuestion,
   };
 };

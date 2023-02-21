@@ -95,6 +95,25 @@ export const useStory = (storyId) => {
     }
   );
 
+  const deleteStory = useMutation(
+    async (id) => {
+      const { data, error } = await supabase
+        .from("stories")
+        .delete()
+        .eq("id", id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["stories", user?.id]);
+        // queryClient.invalidateQueries(["applications", user?.id]);
+      },
+    }
+  );
+
   const relatedApps = useQuery(
     ["_application_to_story", storyId],
     async () => {
@@ -204,6 +223,7 @@ export const useStory = (storyId) => {
     story,
     create,
     update,
+    deleteStory,
     relatedApps,
     addLink,
     removeLink,

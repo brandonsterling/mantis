@@ -82,6 +82,7 @@ function Assistant({ form }) {
       }),
     });
     const res = await response.json();
+    console.log(res);
     form.setFieldValue("answer", `${res.result}`);
     setLoading(false);
   };
@@ -89,7 +90,7 @@ function Assistant({ form }) {
   const isChecked = (value) => {
     if (form) {
       if (value == "question") {
-        return form.values.question.length > 10;
+        return form.values.question.length > 5;
       }
       if (value == "answer") {
         return form.values.answer.length > 10;
@@ -130,7 +131,7 @@ function Assistant({ form }) {
             AI Assistant
           </Text>
 
-          <Stepper size="xs" active={active} orientation="vertical">
+          <Stepper size="sm" active={active} orientation="vertical">
             <Stepper.Step
               label="Question"
               description="Add a question for yourself or an interviewer "

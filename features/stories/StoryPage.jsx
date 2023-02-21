@@ -5,6 +5,8 @@ import {
   Grid,
   Card,
   CloseButton,
+  ActionIcon,
+  Group,
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
@@ -12,6 +14,8 @@ import { Side, SideContent, StoryContent } from "./Story";
 import { StoryList } from "./components/StoryList";
 import FormCard from "../../components/FormCard";
 import CreateStory from "./CreateStory";
+import { useStory } from "../../hooks/useStory";
+import { IoTrashOutline } from "react-icons/io5";
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -39,10 +43,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const FormHeader = ({ handleClose }) => {
+const FormHeader = ({ handleClose, handleDelete }) => {
   return (
     <Card.Section pt="md" inheritPadding>
-      <CloseButton onClick={() => handleClose()} />
+      <Group position="apart">
+        <CloseButton onClick={() => handleClose()} />
+        <ActionIcon onClick={() => handleDelete()}>
+          <IoTrashOutline />
+        </ActionIcon>
+      </Group>
     </Card.Section>
   );
 };
@@ -52,12 +61,18 @@ export function StoryPage() {
   const router = useRouter();
   const [selected, setSelected] = useState(null);
   const { id } = router.query;
+  const { deleteStory } = useStory();
 
   const handleClick = (storyId) => {
     if (router.pathname.includes("stories")) {
       router.push(`/stories/${storyId}`);
     }
     setSelected(storyId);
+  };
+
+  const handleDelete = () => {
+    deleteStory.mutate(selected);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -85,7 +100,10 @@ export function StoryPage() {
               </Grid>
             ) : (
               <>
-                <FormHeader handleClose={handleClose} />
+                <FormHeader
+                  handleClose={handleClose}
+                  handleDelete={handleDelete}
+                />
 
                 <Grid m="0">
                   <StoryContent selected={selected} />

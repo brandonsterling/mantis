@@ -10,10 +10,12 @@ import {
   Card,
   Grid,
   Button,
+  ActionIcon,
 } from "@mantine/core";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BsQuestionSquare, BsSearch } from "react-icons/bs";
+import { IoTrashOutline } from "react-icons/io5";
 import FormCard from "../../components/FormCard";
 import Protected from "../../components/layouts/Protected";
 import ListContainer from "../../components/ListContainer";
@@ -21,6 +23,7 @@ import { QuestionList } from "../../features/questions/components/QuestionList";
 import CreateQuestion from "../../features/questions/CreateQuestion";
 import { CardContent } from "../../features/questions/Question";
 import { QuestionCard } from "../../features/questions/QuestionCard";
+import { useQuestion } from "../../hooks/useQuestion";
 import { useQuestions } from "../../hooks/useQuestions";
 const useStyles = createStyles((theme) => ({
   // grid: {
@@ -78,8 +81,10 @@ function Page() {
   const { classes } = useStyles();
   const router = useRouter();
   const { questions } = useQuestions();
+  const { deleteQuestion } = useQuestion();
   const [selected, setSelected] = useState(null);
   const { id } = router.query;
+  const { data } = questions;
 
   const handleClick = (questionId) => {
     if (router.pathname.includes("questions")) {
@@ -88,7 +93,10 @@ function Page() {
     setSelected(questionId);
   };
 
-  const { data } = questions;
+  const handleDelete = () => {
+    deleteQuestion.mutate(selected);
+    handleClose();
+  };
 
   const handleClose = () => {
     setSelected(null);
@@ -112,7 +120,12 @@ function Page() {
   const FormHeader = () => {
     return (
       <Card.Section pt="md" inheritPadding>
-        <CloseButton onClick={() => handleClose()} />
+        <Group position="apart">
+          <CloseButton onClick={() => handleClose()} />
+          <ActionIcon onClick={() => handleDelete()}>
+            <IoTrashOutline />
+          </ActionIcon>
+        </Group>
       </Card.Section>
     );
   };
