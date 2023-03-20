@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 export default async function handler(req, res) {
   const { question, description } = req.body;
   const completion = await openai.createCompletion({
-    model: "text-davinci-003",
+    model: "gpt-3.5-turbo",
     prompt: generatePrompt(question, description),
     temperature: 0.6,
     max_tokens: 2048,
